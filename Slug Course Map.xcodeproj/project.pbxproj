@@ -7,18 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D83E14702A63986D002D6045 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D83E146F2A63986D002D6045 /* GoogleService-Info.plist */; };
+		D83E14732A639A9B002D6045 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D83E14722A639A9B002D6045 /* FirebaseFirestore */; };
 		D8676F572A5BD3E5009A2C37 /* Slug_Course_MapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8676F562A5BD3E5009A2C37 /* Slug_Course_MapApp.swift */; };
 		D8676F592A5BD3E5009A2C37 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8676F582A5BD3E5009A2C37 /* ContentView.swift */; };
 		D8676F5B2A5BD3E6009A2C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8676F5A2A5BD3E6009A2C37 /* Assets.xcassets */; };
 		D8676F5E2A5BD3E6009A2C37 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8676F5D2A5BD3E6009A2C37 /* Preview Assets.xcassets */; };
+		D8C63F122A64659400BFEE89 /* AreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C63F112A64659400BFEE89 /* AreaView.swift */; };
+		D8C63F142A647F3F00BFEE89 /* CourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C63F132A647F3F00BFEE89 /* CourseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D83E146F2A63986D002D6045 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D8676F532A5BD3E5009A2C37 /* Slug Course Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Slug Course Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8676F562A5BD3E5009A2C37 /* Slug_Course_MapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slug_Course_MapApp.swift; sourceTree = "<group>"; };
 		D8676F582A5BD3E5009A2C37 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D8676F5A2A5BD3E6009A2C37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8676F5D2A5BD3E6009A2C37 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D8C63F112A64659400BFEE89 /* AreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaView.swift; sourceTree = "<group>"; };
+		D8C63F132A647F3F00BFEE89 /* CourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D83E14732A639A9B002D6045 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,10 +59,9 @@
 		D8676F552A5BD3E5009A2C37 /* Slug Course Map */ = {
 			isa = PBXGroup;
 			children = (
-				D8676F562A5BD3E5009A2C37 /* Slug_Course_MapApp.swift */,
-				D8676F582A5BD3E5009A2C37 /* ContentView.swift */,
-				D8676F5A2A5BD3E6009A2C37 /* Assets.xcassets */,
-				D8676F5C2A5BD3E6009A2C37 /* Preview Content */,
+				D8C63F0F2A64653F00BFEE89 /* Main */,
+				D8C63F102A64654E00BFEE89 /* Files */,
+				D83E146F2A63986D002D6045 /* GoogleService-Info.plist */,
 			);
 			path = "Slug Course Map";
 			sourceTree = "<group>";
@@ -65,6 +72,26 @@
 				D8676F5D2A5BD3E6009A2C37 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D8C63F0F2A64653F00BFEE89 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				D8676F582A5BD3E5009A2C37 /* ContentView.swift */,
+				D8C63F112A64659400BFEE89 /* AreaView.swift */,
+				D8C63F132A647F3F00BFEE89 /* CourseView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		D8C63F102A64654E00BFEE89 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				D8676F562A5BD3E5009A2C37 /* Slug_Course_MapApp.swift */,
+				D8676F5C2A5BD3E6009A2C37 /* Preview Content */,
+				D8676F5A2A5BD3E6009A2C37 /* Assets.xcassets */,
+			);
+			path = Files;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +110,9 @@
 			dependencies = (
 			);
 			name = "Slug Course Map";
+			packageProductDependencies = (
+				D83E14722A639A9B002D6045 /* FirebaseFirestore */,
+			);
 			productName = "Slug Course Map";
 			productReference = D8676F532A5BD3E5009A2C37 /* Slug Course Map.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +141,9 @@
 				Base,
 			);
 			mainGroup = D8676F4A2A5BD3E5009A2C37;
+			packageReferences = (
+				D83E14712A639A9B002D6045 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = D8676F542A5BD3E5009A2C37 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,6 +160,7 @@
 			files = (
 				D8676F5E2A5BD3E6009A2C37 /* Preview Assets.xcassets in Resources */,
 				D8676F5B2A5BD3E6009A2C37 /* Assets.xcassets in Resources */,
+				D83E14702A63986D002D6045 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +171,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8C63F122A64659400BFEE89 /* AreaView.swift in Sources */,
 				D8676F592A5BD3E5009A2C37 /* ContentView.swift in Sources */,
 				D8676F572A5BD3E5009A2C37 /* Slug_Course_MapApp.swift in Sources */,
+				D8C63F142A647F3F00BFEE89 /* CourseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +302,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Slug Course Map/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Slug Course Map/Files/Preview Content\"";
 				DEVELOPMENT_TEAM = 798S44L2X9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -295,7 +331,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Slug Course Map/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Slug Course Map/Files/Preview Content\"";
 				DEVELOPMENT_TEAM = 798S44L2X9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -339,6 +375,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D83E14712A639A9B002D6045 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D83E14722A639A9B002D6045 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D83E14712A639A9B002D6045 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D8676F4B2A5BD3E5009A2C37 /* Project object */;
 }
