@@ -24,13 +24,12 @@ extension AreaView {
                 ForEach(allCourseCodes, id: \.self) { code in
                     NavigationLink(destination: CourseView(courseCode: "\(areaCode) \(code.lowercased())", areaTitle: areaTitle)) {//
                         Text("\(areaCode.uppercased()) \(code)")
-                            .foregroundColor(.appBlue)
+                            .foregroundColor(.appPrimary)
                     }
                 }
             }
             .navigationTitle(areaTitle)
         }
-        .accentColor(.appBlue)
         .onAppear {
             getAreaDetails()
         }

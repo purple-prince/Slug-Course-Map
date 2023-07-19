@@ -8,6 +8,10 @@
 import SwiftUI
 import FirebaseFirestore
 
+enum CourseStatus: String {
+    case locked, available, taken, taking
+}
+
 struct Course: Identifiable {
     let id = UUID().uuidString
     
@@ -26,6 +30,21 @@ struct CourseView: View {
     let courseCode: String
     let areaTitle: String
     @State var course: Course?
+    @State var status: CourseStatus = .locked
+    var oldStatus: CourseStatus = .locked
+    @AppStorage("takenCredits") var takenCredits = 0
+    
+    init(courseCode: String, areaTitle: String) {
+        self.courseCode = courseCode
+        self.areaTitle = areaTitle
+        
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(.appBlue)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+        
+        UISegmentedControl.appearance().setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 16)], for: .normal)
+        
+        
+    }
 }
 
 extension CourseView {
@@ -35,12 +54,21 @@ extension CourseView {
                 courseDetails
             }
         }
-        .navigationBarTitle(Text(""), displayMode: .inline)
+        //.navigationBarTitle(Text(""), displayMode: .inline)
         .onAppear {
-            print(courseCode)
             getCourseDetails()
         }
-        .foregroundColor(.appBlue)
+        .foregroundColor(.appPrimary)
+        .onChange(of: status) { _ in
+            @AppStorage(courseCode) var storedStatus: CourseStatus = .available
+            storedStatus = status
+            
+            if status == .taken {
+                takenCredits += course?.credits ?? 0
+            } else {
+                
+            }
+        }
     }
 }
 extension CourseView {
@@ -67,38 +95,23 @@ extension CourseView {
             VStack(alignment: .leading, spacing: 8) {
                 
                 if let preReqs = course!.preReqCodes {
-                    HStack(spacing: 0) {
-                        Text("**Prerequisites:** ")
-                        Text(preReqs)
-                    }
+                    Text("**Prerequisites:** \(preReqs)")
                 }
                 
                 if let instructor = course!.instructor {
-                    HStack(spacing: 0) {
-                        Text("**Instructor:** ")
-                        Text(instructor)
-                    }
+                    Text("**Instructor:** \(instructor)")
                 }
                 
                 if let genEdCode = course!.genEdCode {
-                    HStack(spacing: 0) {
-                        Text("**Gen Ed Code:** ")
-                        Text(genEdCode.uppercased())
-                    }
+                    Text("**Gen Ed Code:** \(genEdCode.uppercased())")
                 }
                 
                 if let qsOffered = course!.quartersOffered {
-                    HStack(spacing: 0) {
-                        Text("**Quarters Offered:** ")
-                        Text(qsOffered)
-                    }
+                    Text("**Quarters Offered:** \(qsOffered)")
                 }
                 
                 if let _ = course!.repeatableForCredit {
-                    HStack(spacing: 0) {
-                        Text("**Repeatable for Credit:** ")
-                        Text("Yes")
-                    }
+                    Text("**Repeatable for Credit:** Yes")
                 }
                 
                 HStack {
@@ -106,10 +119,30 @@ extension CourseView {
                 }
             }
             
-            
             Spacer()
+            
+            VStack {
+                Text("Status")
+                    .font(.title)
+                    .bold()
+                
+                Picker("", selection: $status) {
+                    Image(systemName: "lock").tag(CourseStatus.locked)
+                    
+                    Text("Taken").tag(CourseStatus.taken)
+                    
+                    Text("Taking").tag(CourseStatus.taking)
+                    
+                    Text("Can Take").tag(CourseStatus.available)
+                        .font(.largeTitle)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.horizontal, 12)
+                .disabled(course == nil)
+            }
         }
         .padding()
+        
     }
 }
 
@@ -132,6 +165,9 @@ extension CourseView {
                     )
                 }
         }
+        
+        @AppStorage(courseCode) var storedStatus: CourseStatus = .available
+        status = storedStatus
     }
 }
 

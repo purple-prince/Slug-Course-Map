@@ -10,92 +10,59 @@ import FirebaseFirestore
 
 struct ContentView: View {
     
-//    @State var allAreasOfStudy: [String] = []
-//    @State var selectedAreaCourseCodes: [String] = []
-//    @State var selectedAreaCode: String = ""
-    @State var allAreasOfStudy: [String]
-    @State var selectedAreaCourseCodes: [String]
-    @State var selectedAreaCode: String
+    enum Tab { case profile, courseBook }
     
-    init() {
-        _allAreasOfStudy = State(initialValue: [])
-        _selectedAreaCourseCodes = State(initialValue: [])
-        _selectedAreaCode = State(initialValue: "")
-//        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(Color.appBlue)]
-    }
+    @State var currentTab: Tab = .profile
+
     
 }
 
 extension ContentView {
     var body: some View {
-        NavigationStack {
-            
-            
+        ZStack {
             VStack {
-                List {
-                    ForEach(allAreasOfStudy, id: \.self) { area in
-                        NavigationLink(destination: AreaView(areaTitle: area)) {
-                            Text(area)
-                                .foregroundColor(.appBlue)
-                        }
-                    }
-                    //.listRowBackground(Color(red: 0.85, green: 0.85, blue: 0.85))
-                    
+                if currentTab == .profile {
+                    ProfileView()
+                } else {
+                    CourseBookView()
                 }
-                //.background(Color.appBlue)
-                //.scrollContentBackground(.hidden)
+                Spacer()
+                tabs
             }
-            .navigationTitle("Areas of Study")
-        }
-        .accentColor(.appBlue)
-        .onAppear {
-            loadAreasOfStudy()
+            
         }
     }
 }
 
 extension ContentView {
-    
-}
-
-extension ContentView {
-    func loadAreasOfStudy() {
-        let db = Firestore.firestore()
-
-        let areasOfStudyRef = db.collection("areasOfStudy")
-        areasOfStudyRef.document("meta").getDocument { snapshot, error in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            if let doc = snapshot {
-                DispatchQueue.main.async {
-                    self.allAreasOfStudy = doc["allAreas"] as? [String] ?? ["Error"]
-                }
-            }
+    var tabs: some View {
+        HStack {
+            
+            Spacer()
+            
+            Image(systemName: currentTab == .profile ? "person.fill" : "person")
+                .font(.title)
+                .onTapGesture { currentTab = .profile }
+            
+            Spacer()
+            
+            Image(systemName: currentTab == .courseBook ? "list.bullet.clipboard.fill" : "list.bullet.clipboard")
+                .font(.title)
+                .onTapGesture { currentTab = .courseBook }
+            
+            Spacer()
         }
-    }
-    
-    func loadSelectedCourseCodes(forArea area: String) {
-        let db = Firestore.firestore()
-        
-        db.collection("areasOfStudy").document(area).getDocument { snapshot, error in
-            if let error = error { print(error.localizedDescription); return }
-            if let doc = snapshot {
-                selectedAreaCode = doc["code"] as? String ?? ""
-                selectedAreaCourseCodes = doc["codes"] as? [String] ?? ["Error :("]
-            }
-        }
+        .foregroundColor(.appYellow)
+        .padding(.top, 8)
+        .padding(.horizontal)
+        .background(Color.appPrimary)
     }
 }
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
-}
-
-extension Color {
-    static let appYellow = Color(red: 1, green: 214/255, blue: 10/255)
-    static let appBlue = Color(red: 0, green: 53/255, blue: 102/255)
 }

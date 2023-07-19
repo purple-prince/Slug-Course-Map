@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D8390A9A2A67786400E4AD63 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8390A992A67786400E4AD63 /* ProfileView.swift */; };
 		D83E14702A63986D002D6045 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D83E146F2A63986D002D6045 /* GoogleService-Info.plist */; };
 		D83E14732A639A9B002D6045 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D83E14722A639A9B002D6045 /* FirebaseFirestore */; };
 		D8676F572A5BD3E5009A2C37 /* Slug_Course_MapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8676F562A5BD3E5009A2C37 /* Slug_Course_MapApp.swift */; };
@@ -15,9 +16,12 @@
 		D8676F5E2A5BD3E6009A2C37 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8676F5D2A5BD3E6009A2C37 /* Preview Assets.xcassets */; };
 		D8C63F122A64659400BFEE89 /* AreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C63F112A64659400BFEE89 /* AreaView.swift */; };
 		D8C63F142A647F3F00BFEE89 /* CourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C63F132A647F3F00BFEE89 /* CourseView.swift */; };
+		D8D641A32A6733A5004EEC82 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D641A22A6733A5004EEC82 /* Extensions.swift */; };
+		D8D641A52A6733E6004EEC82 /* CourseBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D641A42A6733E6004EEC82 /* CourseBookView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D8390A992A67786400E4AD63 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D83E146F2A63986D002D6045 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D8676F532A5BD3E5009A2C37 /* Slug Course Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Slug Course Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8676F562A5BD3E5009A2C37 /* Slug_Course_MapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slug_Course_MapApp.swift; sourceTree = "<group>"; };
@@ -26,6 +30,8 @@
 		D8676F5D2A5BD3E6009A2C37 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D8C63F112A64659400BFEE89 /* AreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaView.swift; sourceTree = "<group>"; };
 		D8C63F132A647F3F00BFEE89 /* CourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseView.swift; sourceTree = "<group>"; };
+		D8D641A22A6733A5004EEC82 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D8D641A42A6733E6004EEC82 /* CourseBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseBookView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,8 @@
 				D8676F582A5BD3E5009A2C37 /* ContentView.swift */,
 				D8C63F112A64659400BFEE89 /* AreaView.swift */,
 				D8C63F132A647F3F00BFEE89 /* CourseView.swift */,
+				D8D641A42A6733E6004EEC82 /* CourseBookView.swift */,
+				D8390A992A67786400E4AD63 /* ProfileView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -90,6 +98,7 @@
 				D8676F562A5BD3E5009A2C37 /* Slug_Course_MapApp.swift */,
 				D8676F5C2A5BD3E6009A2C37 /* Preview Content */,
 				D8676F5A2A5BD3E6009A2C37 /* Assets.xcassets */,
+				D8D641A22A6733A5004EEC82 /* Extensions.swift */,
 			);
 			path = Files;
 			sourceTree = "<group>";
@@ -172,8 +181,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8C63F122A64659400BFEE89 /* AreaView.swift in Sources */,
+				D8D641A32A6733A5004EEC82 /* Extensions.swift in Sources */,
+				D8D641A52A6733E6004EEC82 /* CourseBookView.swift in Sources */,
 				D8676F592A5BD3E5009A2C37 /* ContentView.swift in Sources */,
 				D8676F572A5BD3E5009A2C37 /* Slug_Course_MapApp.swift in Sources */,
+				D8390A9A2A67786400E4AD63 /* ProfileView.swift in Sources */,
 				D8C63F142A647F3F00BFEE89 /* CourseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
