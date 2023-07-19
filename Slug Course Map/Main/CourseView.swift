@@ -30,8 +30,9 @@ struct CourseView: View {
     let courseCode: String
     let areaTitle: String
     @State var course: Course?
-    @State var status: CourseStatus = .locked
-    var oldStatus: CourseStatus = .locked
+    @State var status: CourseStatus?
+    var oldStatus: CourseStatus?
+    
     @AppStorage("takenCredits") var takenCredits = 0
     
     init(courseCode: String, areaTitle: String) {
@@ -60,14 +61,23 @@ extension CourseView {
         }
         .foregroundColor(.appPrimary)
         .onChange(of: status) { _ in
+            
+            // when the status changes, this updates the appstorage status to match
             @AppStorage(courseCode) var storedStatus: CourseStatus = .available
-            storedStatus = status
+            storedStatus = status!
             
             if status == .taken {
-                takenCredits += course?.credits ?? 0
+                if oldStatus != nil { takenCredits += course!.credits }
             } else {
-                
+                if oldStatus == .taken { takenCredits -= course!.credits }
             }
+            
+//            if status == .taken {
+//                if oldStatus == .available
+//                takenCredits += course?.credits ?? 0
+//            } else {
+//
+//            }
         }
     }
 }
