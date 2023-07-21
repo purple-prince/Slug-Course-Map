@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import SwiftData
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
@@ -31,5 +32,6 @@ struct Slug_Course_MapApp: App {
             ContentView()
                 .preferredColorScheme(.light)
         }
+        .modelContainer(for: CourseDataModel.self)
     }
 }

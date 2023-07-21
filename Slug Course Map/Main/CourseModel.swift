@@ -1,8 +1,19 @@
+////
+////  CourseModel.swift
+////  Slug Course Map
+////
+////  Created by Charlie Reeder on 7/20/23.
+////
 //
-//  CourseModel.swift
-//  Slug Course Map
+//import Foundation
+//import SwiftData
 //
-//  Created by Charlie Reeder on 7/20/23.
-//
-
-import Foundation
+//@Model
+//class CourseDataModel {
+//    
+//    var coursesData: [String : [CourseStatus]]
+//    
+//    init(p: String) {
+//        self.coursesData = [:]
+//    }
+//}

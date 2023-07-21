@@ -31,7 +31,7 @@ extension AreaView {
             .navigationTitle(areaTitle)
         }
         .onAppear {
-            getAreaDetails()
+            getAreaDetails()// this is a comment
         }
     }
 }
@@ -53,8 +53,6 @@ extension AreaView {
     }
 }
 
-struct AreaView_Previews: PreviewProvider {
-    static var previews: some View {
-        AreaView(areaTitle: "Yiddish")
-    }
+#Preview {
+    AreaView(areaTitle: "Yiddish")
 }

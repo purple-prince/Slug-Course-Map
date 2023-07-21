@@ -14,6 +14,8 @@
 		D8676F592A5BD3E5009A2C37 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8676F582A5BD3E5009A2C37 /* ContentView.swift */; };
 		D8676F5B2A5BD3E6009A2C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8676F5A2A5BD3E6009A2C37 /* Assets.xcassets */; };
 		D8676F5E2A5BD3E6009A2C37 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8676F5D2A5BD3E6009A2C37 /* Preview Assets.xcassets */; };
+		D8A339CC2A6A263F001FE6E6 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A339CB2A6A263F001FE6E6 /* TestView.swift */; };
+		D8C300332A691D9F00181AD1 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C300322A691D9F00181AD1 /* CourseModel.swift */; };
 		D8C63F122A64659400BFEE89 /* AreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C63F112A64659400BFEE89 /* AreaView.swift */; };
 		D8C63F142A647F3F00BFEE89 /* CourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C63F132A647F3F00BFEE89 /* CourseView.swift */; };
 		D8D641A32A6733A5004EEC82 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D641A22A6733A5004EEC82 /* Extensions.swift */; };
@@ -28,6 +30,8 @@
 		D8676F582A5BD3E5009A2C37 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D8676F5A2A5BD3E6009A2C37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8676F5D2A5BD3E6009A2C37 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D8A339CB2A6A263F001FE6E6 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		D8C300322A691D9F00181AD1 /* CourseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
 		D8C63F112A64659400BFEE89 /* AreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaView.swift; sourceTree = "<group>"; };
 		D8C63F132A647F3F00BFEE89 /* CourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseView.swift; sourceTree = "<group>"; };
 		D8D641A22A6733A5004EEC82 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 				D8C63F0F2A64653F00BFEE89 /* Main */,
 				D8C63F102A64654E00BFEE89 /* Files */,
 				D83E146F2A63986D002D6045 /* GoogleService-Info.plist */,
+				D8A339CB2A6A263F001FE6E6 /* TestView.swift */,
 			);
 			path = "Slug Course Map";
 			sourceTree = "<group>";
@@ -88,6 +93,7 @@
 				D8C63F132A647F3F00BFEE89 /* CourseView.swift */,
 				D8D641A42A6733E6004EEC82 /* CourseBookView.swift */,
 				D8390A992A67786400E4AD63 /* ProfileView.swift */,
+				D8C300322A691D9F00181AD1 /* CourseModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -186,6 +192,8 @@
 				D8676F592A5BD3E5009A2C37 /* ContentView.swift in Sources */,
 				D8676F572A5BD3E5009A2C37 /* Slug_Course_MapApp.swift in Sources */,
 				D8390A9A2A67786400E4AD63 /* ProfileView.swift in Sources */,
+				D8A339CC2A6A263F001FE6E6 /* TestView.swift in Sources */,
+				D8C300332A691D9F00181AD1 /* CourseModel.swift in Sources */,
 				D8C63F142A647F3F00BFEE89 /* CourseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,7 +251,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -297,7 +305,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

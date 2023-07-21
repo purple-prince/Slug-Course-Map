@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TestView: View {
     var body: some View {
@@ -15,4 +16,14 @@ struct TestView: View {
 
 #Preview {
     TestView()
+}
+
+@Model
+class DataItem {
+    
+    var name: String
+    
+    init(name: String) {
+        self.name = name
+    }
 }
