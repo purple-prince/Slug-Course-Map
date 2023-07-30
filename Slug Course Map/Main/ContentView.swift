@@ -7,29 +7,32 @@
 
 import SwiftUI
 import FirebaseFirestore
+import SwiftData
 
 struct ContentView: View {
     
     enum Tab { case profile, courseBook }
     
     @State var currentTab: Tab = .profile
-
+    @SwiftData.Query var th: [CourseDataModel]
+    @Environment(\.modelContext) var context
+    
+    @State var courseBookAreaData: [String] = []
     
 }
 
 extension ContentView {
     var body: some View {
-        ZStack {
+        VStack {
             VStack {
                 if currentTab == .profile {
                     ProfileView()
                 } else {
-                    CourseBookView()
+                    CourseBookView(allAreasOfStudy: $courseBookAreaData)
                 }
                 Spacer()
                 tabs
             }
-            
         }
     }
 }
@@ -48,7 +51,12 @@ extension ContentView {
             
             Image(systemName: currentTab == .courseBook ? "list.bullet.clipboard.fill" : "list.bullet.clipboard")
                 .font(.title)
-                .onTapGesture { currentTab = .courseBook }
+                .onTapGesture {
+                    currentTab = .courseBook
+//                    if !courseBookAreasCached {
+//                        courseBookAreasCached = true
+//                    }
+                }
             
             Spacer()
         }

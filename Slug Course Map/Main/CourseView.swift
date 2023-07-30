@@ -7,46 +7,32 @@
 //
 //import SwiftUI
 //import FirebaseFirestore
-//
-//enum CourseStatus: String {
-//    case locked, available, taken, taking
-//}
-//
-//struct Course: Identifiable {
-//    let id = UUID().uuidString
-//    
-//    let title: String
-//    let code: String
-//    let credits: Int
-//    let description: String
-//    let quartersOffered: String?
-//    let instructor: String?
-//    let genEdCode: String?
-//    let repeatableForCredit: Bool?
-//    let preReqCodes: String?
-//}
+//import SwiftData
 //
 //struct CourseView: View {
 //    let courseCode: String
 //    let areaTitle: String
 //    @State var course: Course?
-//
-//    @AppStorage var status: CourseStatus
+//    @State var status: String = "available"
+//    @State var statusIsInitialized: Bool = false
 //    
-//    @AppStorage("takenCredits") var takenCredits = 0
+//    @SwiftData.Query var selectedCourseDataArray: [CourseDataModel]
+//    @Environment(\.modelContext) var context
+//    @AppStorage("taken_credits") var taken_credits: Int = 0
+//    @AppStorage("taking_credits") var taking_credits: Int = 0
 //    
 //    init(courseCode: String, areaTitle: String) {
 //        self.courseCode = courseCode
 //        self.areaTitle = areaTitle
 //        
+//        self._selectedCourseDataArray = SwiftData.Query(filter: #Predicate { $0.code == courseCode } )
+//        
+//        //self._status = State(wrappedValue: selectedCourseDataArray.first!.status)
+//        
 //        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(.appBlue)
 //        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
 //        
 //        UISegmentedControl.appearance().setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 16)], for: .normal)
-//        
-////        self._status = AppStorage(wrappedValue: CourseStatus.locked, courseCode)
-//        
-//        
 //    }
 //}
 //
@@ -57,12 +43,46 @@
 //                courseDetails
 //            }
 //        }
-//        //.navigationBarTitle(Text(""), displayMode: .inline)
 //        .onAppear {
+//            
+//            if selectedCourseDataArray.isEmpty {
+//                context.insert(CourseDataModel(code: courseCode))
+//                do { try context.save() } catch { print(error.localizedDescription) }
+//            }
+//            
 //            getCourseDetails()
 //        }
 //        .foregroundColor(.appPrimary)
-//        .onChange(of: status) { _ in
+//        .onChange(of: status) { oldValue, newValue in
+//            
+//            if newValue != selectedCourseDataArray.first!.status {
+//                if newValue == "available" {
+//                    if oldValue == "taking" {
+//                        taking_credits -= course!.credits
+//                    } else if oldValue == "taken" {
+//                        taken_credits -= course!.credits
+//                    }
+//                } else if newValue == "taking" {
+//                    if oldValue == "available" {
+//                        taking_credits += course!.credits
+//                    } else if oldValue == "taken" {
+//                        taken_credits -= course!.credits
+//                        taking_credits += course!.credits
+//                    }
+//                } else if newValue == "taken" {
+//                    if oldValue == "taking" {
+//                        taking_credits -= course!.credits
+//                        taken_credits += course!.credits
+//                    } else if oldValue == "available" {
+//                        taken_credits += course!.credits
+//                    }
+//                }
+//            }
+//            
+//            
+//            
+//            selectedCourseDataArray.first!.status = status
+//            do { try context.save() } catch { print(error.localizedDescription) }
 //        }
 //    }
 //}
@@ -76,10 +96,6 @@
 //                
 //                HStack {
 //                    Text(courseCode.uppercased())
-//                        .onTapGesture {
-//                            @AppStorage(courseCode) var storedStatus: CourseStatus = .available
-//                            print(storedStatus)
-//                        }
 //                    
 //                    Circle()
 //                        .frame(width: 5)
@@ -128,17 +144,17 @@
 //                    .bold()
 //                
 //                Picker("", selection: $status) {
-//                    Image(systemName: "lock").tag(CourseStatus.locked)
 //                    
-//                    Text("Taken").tag(CourseStatus.taken)
-//                    
-//                    Text("Taking").tag(CourseStatus.taking)
-//                    
-//                    Text("Can Take").tag(CourseStatus.available)
+//                    Text("Available").tag("available")
 //                        .font(.largeTitle)
+//                                        
+//                    Text("Taking").tag("taking")
+//                    
+//                    Text("Taken").tag("taken")
+//                    
 //                }
 //                .pickerStyle(SegmentedPickerStyle())
-//                .padding(.horizontal, 12)
+//                .padding(.horizontal)
 //                .disabled(course == nil)
 //            }
 //        }
@@ -148,11 +164,15 @@
 //}
 //
 //extension CourseView {
-//    func getCourseDetails() {
+//    
+//     func getCourseDetails() {
 //        let db = Firestore.firestore()
 //        db.collection("areasOfStudy").document(areaTitle).collection("courses").document(courseCode)
 //            .getDocument { snapshot, error in
 //                if let doc = snapshot {
+//                    
+//                    self.status = selectedCourseDataArray.first!.status
+//                    
 //                    course = Course(
 //                        title: doc["title"] as? String ?? "Error",
 //                        code: courseCode,
@@ -169,8 +189,10 @@
 //    }
 //}
 //
-//struct CourseView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CourseView(courseCode: "yidd 99f", areaTitle: "Yiddish")
-//    }
+//#Preview {
+//    CourseView(courseCode: "writ 1", areaTitle: "Writing")
+//        .modelContainer(previewContainer)
 //}
+//
+//
+//
