@@ -13,38 +13,58 @@ struct CourseView: View {
     let courseCode: String
     let areaTitle: String
     @State var course: Course?
-    @State var status: String = "available"
-    @State var statusIsInitialized: Bool = false
+//    @State var status: String = "available"
+//    @State var statusIsInitialized: Bool = false
         
     @SwiftData.Query var selectedCourseDataArray: [CourseDataModel]
     @Environment(\.modelContext) var context
-//    @AppStorage("taken_credits") var taken_credits: Int = 0
-//    @AppStorage("taking_credits") var taking_credits: Int = 0
+    
+    @AppStorage("taken_credits") var taken_credits: Int = 0
+    @AppStorage("taking_credits") var taking_credits: Int = 0
+    
+    @State var h: Int = 2
     
     init(courseCode: String, areaTitle: String) {
-        print(courseCode)
         self.courseCode = courseCode
         self.areaTitle = areaTitle
                 
         _selectedCourseDataArray = SwiftData.Query(filter: #Predicate { $0.code == courseCode } )
+        
+        //print(selectedCourseDataArray.count.description)
 
-//self._status = State(wrappedValue: selectedCourseDataArray.first!.status)
+        //self._status = State(wrappedValue: selectedCourseDataArray.first!.status)
     }
 }
 
 extension CourseView {
     var body: some View {
+        
         ZStack {
             if let _ = course {
                 courseDetails
                     .navigationBarTitleDisplayMode(.inline)
             }
         }
-        .onAppear { getCourseDetails() }
+        .onAppear {
+            getCourseDetails()
+        }
         .foregroundColor(.appPrimary)
-//        .onChange(of: status) { oldValue, newValue in
-            
+//        .onChange(of: selectedCourseDataArray.first!.status) { oldValue, newValue in
+//            
+//            print("CHANGED")
+//            
+////            guard statusIsInitialized else { return }
+//            
 //            if newValue != selectedCourseDataArray.first!.status {
+//                
+//                selectedCourseDataArray.first!.status = newValue
+//
+//                do {
+//                    try context.save()
+//                } catch {
+//                    print(error.localizedDescription)
+//                }
+//                                
 //                if newValue == "available" {
 //                    if oldValue == "taking" {
 //                        taking_credits -= course!.credits
@@ -78,6 +98,9 @@ extension CourseView {
             VStack(spacing: 8) {
                 Text(course!.title)
                     .font(.largeTitle)
+                    .onTapGesture {
+                        print(selectedCourseDataArray.first!.status)
+                    }
                 
                 HStack {
                     Text(courseCode.uppercased())
@@ -123,25 +146,26 @@ extension CourseView {
             
             Spacer()
             
-            VStack {
-                Text("Status")
-                    .font(.title)
-                    .bold()
-                
-                Picker("", selection: $status) {
-                    
-                    Text("Available").tag("available")
-                        .font(.largeTitle)
-                                        
-                    Text("Taking").tag("taking")
-                    
-                    Text("Taken").tag("taken")
-                    
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding(.horizontal)
-                .disabled(course == nil)
-            }
+//            VStack {
+//                Text("Status")
+//                    .font(.title)
+//                    .bold()
+//                
+////                Picker("", selection: $status) {
+//                Picker("", selection: Bindable(selectedCourseDataArray.first!).status) {
+//                    
+//                    Text("Available").tag("available")
+//                        .font(.largeTitle)
+//                                        
+//                    Text("Taking").tag("taking")
+//                    
+//                    Text("Taken").tag("taken")
+//                    
+//                }
+//                .pickerStyle(SegmentedPickerStyle())
+//                .padding(.horizontal)
+//                .disabled(course == nil)
+//            }
         }
         .padding()
         
@@ -157,7 +181,9 @@ extension CourseView {
             .getDocument { snapshot, error in
                 if let doc = snapshot {
                     
-                    self.status = selectedCourseDataArray.first!.status
+//                    self.status = selectedCourseDataArray.first!.status
+//                    self.statusIsInitialized = true
+//                    print(status)
                     
                     course = Course(
                         title: doc["title"] as? String ?? "Error",

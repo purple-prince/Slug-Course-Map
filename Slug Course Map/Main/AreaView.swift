@@ -37,10 +37,15 @@ struct AreaView: View {
 extension AreaView {
     
     func onClick(code: String) {
-
-        context.insert(CourseDataModel(code: code.lowercased()))
-        do { try context.save(); print("SAVED") } catch { print(error.localizedDescription )}
         
+        print(relevantCourses.description)
+
+        if relevantCourses.filter({ $0.code == code }).isEmpty {
+            context.insert(CourseDataModel(code: code))
+            do { try context.save(); print("SAVED") } catch { print(error.localizedDescription )}
+        }
+        
+        print(relevantCourses.description)
         
         courseSelectedCode = code
         
