@@ -16,8 +16,16 @@ struct AreaView: View {
     @State var areaCode: String
     @State var isNavLinkActive: Bool = false
     
+    
     @Environment(\.modelContext) var context
     @SwiftData.Query var relevantCourses: [CourseDataModel]
+    
+    // Detail Screen Vars
+    
+    @State var showCourseView: Bool = false
+    @State var courseSelectedCode: String = ""
+    
+    // End Detail Screen Vars
     
     init(areaTitle: String, areaCode: String) {
         self.areaTitle = areaTitle
@@ -26,68 +34,58 @@ struct AreaView: View {
     }
 }
 
-struct CourseView: View {
-    
-    let courseCode: String
-    let areaTitle: String
-    @State var course: Course?
-    @State var status: String = "available"
-    @State var statusIsInitialized: Bool = false
-
-//    @SwiftData.Query var selectedCourseDataArray: [CourseDataModel]
-//    @Environment(\.modelContext) var context
-//    @AppStorage("taken_credits") var taken_credits: Int = 0
-    @AppStorage("taking_credits") var taking_credits: Int = 0
-
-//    init(courseCode: String, areaTitle: String) {
-//        self.courseCode = courseCode
-//        self.areaTitle = areaTitle
-//
-//        self._selectedCourseDataArray = SwiftData.Query(filter: #Predicate { $0.code == courseCode } )
-//
-//        //self._status = State(wrappedValue: selectedCourseDataArray.first!.status)
-//
-//        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(.appBlue)
-//        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-//
-//        UISegmentedControl.appearance().setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 16)], for: .normal)
-//    }
-    
-    var body: some View {
-        Text("A")
-    }
-}
-
-struct TempView: View {
-    
-    //@AppStorage("pooppy") var poop: Int = 0
-    
-    var body: some View {
-        Text("Textx")
-    }
-}
-
 extension AreaView {
+    
+    func onClick(code: String) {
+
+        context.insert(CourseDataModel(code: code.lowercased()))
+        do { try context.save(); print("SAVED") } catch { print(error.localizedDescription )}
+        
+        
+        courseSelectedCode = code
+        
+        showCourseView = true
+                
+    }
+    
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(allCourseCodes, id: \.self) { code in // i.e. YIDD 99F
-                    
-                    NavigationLink(destination: TempView()) {//CourseView(courseCode: code.lowercased(), areaTitle: areaTitle)) {
+        
+        ZStack {
+            if showCourseView {
+                CourseView(courseCode: courseSelectedCode.lowercased(), areaTitle: areaTitle)
+            } else {
+                List {
+                    ForEach(allCourseCodes, id: \.self) { code in // i.e. YIDD 99F
                         Text(code)
                             .foregroundColor(.appPrimary)
-                        
+                            .onTapGesture {
+                                onClick(code: code.lowercased())
+                            }
                     }
-                    
-                    //.listRowBackground(getCompletionColor(code: code)?.0)
-                    //.opacity(getCompletionColor(code: code)?.1 ?? 1.0)
                 }
+                
             }
-            .navigationTitle(areaTitle)
         }
         .onAppear {
-            getAreaDetails()// this is a comment
+            getAreaDetails()
         }
+        
+//        NavigationStack {
+//            List {
+//                ForEach(allCourseCodes, id: \.self) { code in // i.e. YIDD 99F
+//                    
+//                    NavigationLink(destination: CourseView(courseCode: code.lowercased(), areaTitle: areaTitle)) {
+//                        Text(code)
+//                            .foregroundColor(.appPrimary)
+//                        
+//                    }
+//                    
+//                    //.listRowBackground(getCompletionColor(code: code)?.0)
+//                    //.opacity(getCompletionColor(code: code)?.1 ?? 1.0)
+//                }
+//            }
+//            .navigationTitle(areaTitle)
+//        }
     }
 }
 
@@ -117,7 +115,7 @@ extension AreaView {
         db.collection("areasOfStudy").document(areaTitle).getDocument { snapshot, error in
             if let error = error { print(error.localizedDescription); return; }
             if let doc = snapshot {
-                //areaCode = (doc["code"] as? String ?? "Error")
+            areaCode = (doc["code"] as? String ?? "Error")
                 allCourseCodes = (doc["classCodes"] as? [String] ?? ["Error :("]).map { "\(areaCode.uppercased()) \($0)" }
             }
         }

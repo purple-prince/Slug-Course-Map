@@ -31,6 +31,7 @@ struct Slug_Course_MapApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
+//            Test()
         }
         .modelContainer(for: CourseDataModel.self)
     }
