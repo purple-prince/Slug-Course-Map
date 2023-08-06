@@ -21,6 +21,8 @@ class CourseDataModel: Hashable {
         self.status = "available"
     }
     
+    
+    
     static func strToStatus(_ str: String) -> CourseStatus {
         switch str {
             case "available": return .available

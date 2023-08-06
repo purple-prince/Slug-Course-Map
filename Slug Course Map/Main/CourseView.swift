@@ -18,19 +18,21 @@ struct CourseView: View {
     @State var status: String = ""
     let areaTitle: String
     @State var course: Course?
-//
-//    @AppStorage("taken_credits") var taken_credits: Int = 0
-//    @AppStorage("taking_credits") var taking_credits: Int = 0
-//    
-    @AppStorage("courses_status") var courses_status: [String : String] = [:]
+
+    @AppStorage("taken_credits") var taken_credits: Int = 0
+    @AppStorage("taking_credits") var taking_credits: Int = 0
     
-    init(courseCode: String, areaTitle: String) {
+    
+    @Binding var showCourseView: Bool
+    
+    init(courseCode: String, areaTitle: String, showCourseView: Binding<Bool>) {
         
         self.courseCode = courseCode
         self.areaTitle = areaTitle
                         
         _selectedCourseDataArray = SwiftData.Query(filter: #Predicate { $0.code == courseCode } )
                 
+        self._showCourseView = Binding(projectedValue: showCourseView)
     }
 }
 
@@ -43,28 +45,63 @@ extension CourseView {
             }
             
         }
+        .navigationBarBackButtonHidden(true)
         .foregroundColor(.appPrimary)
         .onAppear {
             getCourseDetails()
             self.status = selectedCourseDataArray.first!.status
-            print(self.status)
         }
         .onChange(of: status) { oldValue, newValue in
             selectedCourseDataArray.first!.status = newValue
+
+            if newValue == "available" {
+                if oldValue == "taking" {
+                    taking_credits -= course!.credits
+                } else if oldValue == "taken" {
+                    taken_credits -= course!.credits
+                }
+            } else if newValue == "taking" {
+                if oldValue == "available" {
+                    taking_credits += course!.credits
+                } else if oldValue == "taken" {
+                    taken_credits -= course!.credits
+                    taking_credits += course!.credits
+                }
+            } else if newValue == "taken" {
+                if oldValue == "taking" {
+                    taking_credits -= course!.credits
+                    taken_credits += course!.credits
+                } else if oldValue == "available" {
+                    taken_credits += course!.credits
+                }
+            }
+        }
+        .toolbar {
+            
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    self.showCourseView = false
+                } label: {
+                    HStack(spacing: 2) {
+                        Image(systemName: "chevron.backward")
+                        Text(areaTitle)
+                    }
+                }
+            }
         }
     }
 }
 
-extension CourseView {
-    var courseDetails: some View {
-        VStack {
-            Picker("", selection: $status) {
-                Text("avail").tag("available")
-                Text("taken").tag("taken")
-                Text("taking").tag("taking")
-            }
-            .pickerStyle(SegmentedPickerStyle())
-//            .onAppear {
+//extension CourseView {
+//    var courseDetails: some View {
+//        VStack {
+//            Picker("", selection: $status) {
+//                Text("avail").tag("available")
+//                Text("taken").tag("taken")
+//                Text("taking").tag("taking")
+//            }
+//            .pickerStyle(SegmentedPickerStyle())
+////            .onAppear {
 //                
 //                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
 //                    print("CODE: " + courseCode)
@@ -74,10 +111,10 @@ extension CourseView {
 //                
 //                
 //            }
-        }
-        .padding()
-    }
-}
+//        }
+//        .padding()
+//    }
+//}
 
 extension CourseView {
     func getCourseDetails() {
@@ -137,88 +174,83 @@ extension CourseView {
 //             }
 //         }
 //
-// extension CourseView {
-//     
-//     var courseDetails: some View {
-//         VStack {
-//             VStack(spacing: 8) {
-//                 Text(course!.title)
-//                     .font(.largeTitle)
-//                     .onTapGesture {
-//                         print(courses_status[courseCode]!)
-//                     }
-//                 
-//                 HStack {
-//                     Text(courseCode.uppercased())
-//                     
-//                     Circle()
-//                         .frame(width: 5)
-//                     
-//                     Text("\(course!.credits) credits")
-//                 }
-//             }
-//                         
-//             Text(course!.description)
-//                 .font(.title3)
-//                 .padding(.vertical, 48)
-//                 .frame(maxWidth: .infinity, alignment: .leading)
-//             
-//             VStack(alignment: .leading, spacing: 8) {
-//                 
-//                 if let preReqs = course!.preReqCodes {
-//                     Text("**Prerequisites:** \(preReqs)")
-//                 }
-//                 
-//                 if let instructor = course!.instructor {
-//                     Text("**Instructor:** \(instructor)")
-//                 }
-//                 
-//                 if let genEdCode = course!.genEdCode {
-//                     Text("**Gen Ed Code:** \(genEdCode.uppercased())")
-//                 }
-//                 
-//                 if let qsOffered = course!.quartersOffered {
-//                     Text("**Quarters Offered:** \(qsOffered)")
-//                 }
-//                 
-//                 if let _ = course!.repeatableForCredit {
-//                     Text("**Repeatable for Credit:** Yes")
-//                 }
-//                 
-//                 HStack {
-//                     Spacer()
-//                 }
-//             }
-//             
-//             Spacer()
-//             
-//             VStack {
-//                 Text("Status")
-//                     .font(.title)
-//                     .bold()
-//                 
-// //                Picker("", selection: $status) {
-// //                Picker("", selection: Bindable(selectedCourseDataArray.first!).status) {
-//                 Picker("", selection: $courses_status[courseCode]) {
-//                     
-//                     Text("Available").tag(Optional("available"))
-//                         .font(.largeTitle)
-//                                         
-//                     Text("Taking").tag(Optional("taking"))
-//                     
-//                     Text("Taken").tag(Optional("taken"))
-//                     
-//                 }
-//                 .pickerStyle(SegmentedPickerStyle())
-//                 .padding(.horizontal)
-//                 .disabled(course == nil)
-//             }
-//         }
-//         .padding()
-//         
-//     }
-// }
-//
+ extension CourseView {
+     
+     var courseDetails: some View {
+         VStack {
+             VStack(spacing: 8) {
+                 Text(course!.title)
+                     .font(.largeTitle)
+                 
+                 HStack {
+                     Text(courseCode.uppercased())
+                     
+                     Circle()
+                         .frame(width: 5)
+                     
+                     Text("\(course!.credits) credits")
+                 }
+             }
+                         
+             Text(course!.description)
+                 .font(.title3)
+                 .padding(.vertical, 48)
+                 .frame(maxWidth: .infinity, alignment: .leading)
+             
+             VStack(alignment: .leading, spacing: 8) {
+                 
+                 if let preReqs = course!.preReqCodes {
+                     Text("**Prerequisites:** \(preReqs)")
+                 }
+                 
+                 if let instructor = course!.instructor {
+                     Text("**Instructor:** \(instructor)")
+                 }
+                 
+                 if let genEdCode = course!.genEdCode {
+                     Text("**Gen Ed Code:** \(genEdCode.uppercased())")
+                 }
+                 
+                 if let qsOffered = course!.quartersOffered {
+                     Text("**Quarters Offered:** \(qsOffered)")
+                 }
+                 
+                 if let _ = course!.repeatableForCredit {
+                     Text("**Repeatable for Credit:** Yes")
+                 }
+                 
+                 HStack {
+                     Spacer()
+                 }
+             }
+             
+             Spacer()
+             
+             VStack {
+                 Text("Status")
+                     .font(.title)
+                     .bold()
+
+                 Picker("", selection: $status) {
+
+                     Text("Available").tag("available")
+                         .font(.largeTitle)
+                                         
+                     Text("Taking").tag("taking")
+                     
+                     Text("Taken").tag("taken")
+                     
+                 }
+                 .pickerStyle(SegmentedPickerStyle())
+                 .padding(.horizontal)
+                 .disabled(course == nil)
+             }
+         }
+         .padding()
+         
+     }
+ }
+
 
 //#Preview {
 //    CourseView(courseCode: "writ 1", areaTitle: "Writing")
