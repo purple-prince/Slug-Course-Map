@@ -3,31 +3,21 @@
 
 import SwiftUI
 
-struct Test: View {
-    var body: some View {
-        NavigationStack {
-            NavigationLink(destination: H()) {
-                Text("CLICK ME")
-            }
-            .simultaneousGesture(TapGesture().onEnded{
-                print("Hello world!")
-            })
-        }
-    }
-}
-
-struct H: View {
-    
-    init() {
-        print("h initialized")
-    }
-    
-    var body: some View {
-        ZStack {
-            
-        }
-        .onAppear {
-            print("APPEARES")
-        }
-    }
-}
+//struct Test: View {
+//    
+//    @AppStorage("number") var anumber: [String] = ["HDFB"]
+//    
+//    var body: some View {
+//        
+//        VStack {
+//            Picker("", selection: $anumber[0]) {
+//                Text("1").tag("one")
+//                Text("2").tag("two")
+//                Text("3").tag("three")
+//            }.pickerStyle(SegmentedPickerStyle())
+//        }
+//        .onAppear {
+//            anumber = "three"
+//        }
+//    }
+//}

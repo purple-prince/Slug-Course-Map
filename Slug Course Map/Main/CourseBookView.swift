@@ -10,9 +10,8 @@ import FirebaseFirestore
 import SwiftData
 
 struct CourseBookView: View {
-    @Binding var allAreasOfStudy: [String]
-    @State var selectedAreaCourseCodes: [String] = []
-    @State var selectedAreaCode: String = ""
+    @Binding var allAreasAndCodes: [String : String]
+    @State var showAreaView: Bool = false
 }
 
 extension CourseBookView {
@@ -20,22 +19,20 @@ extension CourseBookView {
         NavigationStack {
             VStack {
                 List {
-                    ForEach(allAreasOfStudy, id: \.self) { area in
-                        NavigationLink(destination: AreaView(areaTitle: area, areaCode: selectedAreaCode)) {
+                    ForEach(Array(allAreasAndCodes.keys).sorted().reversed(), id: \.self) { area in
+                        NavigationLink(destination: AreaView(areaTitle: area, areaCode: allAreasAndCodes[area]!)) {
                             Text(area)
                                 .foregroundColor(.appPrimary)
                         }
                     }
-                    
                 }
             }
             .navigationTitle("Areas of Study")
         }
         .onAppear {
-            if allAreasOfStudy.isEmpty {
+            if allAreasAndCodes.isEmpty {
                 loadAreasOfStudy()
             }
-            
         }
     }
 }
@@ -52,26 +49,26 @@ extension CourseBookView {
             }
             if let doc = snapshot {
                 DispatchQueue.main.async {
-                    self.allAreasOfStudy = doc["allAreas"] as? [String] ?? []
+                    self.allAreasAndCodes = doc["allAreasAndCodes"] as? [String : String] ?? ["error" : "error"]
                 }
             }
         }
     }
     
-    // TODO: Unused
-    func loadSelectedCourseCodes(forArea area: String) {
-        let db = Firestore.firestore()
-        
-        db.collection("areasOfStudy").document(area).getDocument { snapshot, error in
-            if let error = error { print(error.localizedDescription); return }
-            if let doc = snapshot {
-                selectedAreaCode = doc["code"] as? String ?? ""
-                selectedAreaCourseCodes = doc["codes"] as? [String] ?? ["Error :("]
-            }
-        }
-    }
+//    // TODO: Unused
+//    func loadSelectedCourseCodes(forArea area: String) {
+//        let db = Firestore.firestore()
+//        
+//        db.collection("areasOfStudy").document(area).getDocument { snapshot, error in
+//            if let error = error { print(error.localizedDescription); return }
+//            if let doc = snapshot {
+//                selectedAreaCode = doc["code"] as? String ?? ""
+//                selectedAreaCourseCodes = doc["codes"] as? [String] ?? ["Error :("]
+//            }
+//        }
+//    }
 }
 
-#Preview {
-    CourseBookView(allAreasOfStudy: .constant([]))//areasHaveBeenCached: false)
-}
+//#Preview {
+//    CourseBookView(allAreasOfStudy: .constant([]))//areasHaveBeenCached: false)
+//}

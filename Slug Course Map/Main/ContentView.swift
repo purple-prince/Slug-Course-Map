@@ -17,7 +17,7 @@ struct ContentView: View {
     @SwiftData.Query var th: [CourseDataModel]
     @Environment(\.modelContext) var context
     
-    @State var courseBookAreaData: [String] = []
+    @State var courseBookAreaData: [String : String] = [ : ]
     
 }
 
@@ -28,7 +28,7 @@ extension ContentView {
                 if currentTab == .profile {
                     ProfileView()
                 } else {
-                    CourseBookView(allAreasOfStudy: $courseBookAreaData)
+                    CourseBookView(allAreasAndCodes: $courseBookAreaData)
                 }
                 Spacer()
                 tabs
