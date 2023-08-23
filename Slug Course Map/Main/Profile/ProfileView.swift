@@ -19,41 +19,34 @@ struct ProfileView: View {
         
     var body: some View {//180 req cred
         ZStack {
-            VStack {
-                Text("Coursework")
-                    .font(Font.system(size: 48))
-                    .bold()
-                
-                VStack(alignment: .leading) {
-                    Text("**Completed Credits:** \(taken_credits) / 180")
-                        .font(.title2)
-                    
-                    Text("**Current Term Credits:** \(taking_credits)")
-                        .font(.title2)
-                        
-                    HStack { Spacer() }
-                }
-                .padding(.top, 48)
-                
+            
+            if showDegreeProgressView {
+                DegreeProgressView(showDegreeProgressView: $showDegreeProgressView)
+            } else {
                 VStack {
+                    Text("Coursework")
+                        .font(Font.system(size: 48))
+                        .bold()
+                    
+                    VStack(alignment: .leading) {
+                        Text("**Completed Credits:** \(taken_credits) / 180")
+                            .font(.title2)
+                        
+                        Text("**Current Term Credits:** \(taking_credits)")
+                            .font(.title2)
+                            
+                        HStack { Spacer() }
+                    }
+                    .padding(.top, 48)
                     
                     degreeProgressButton
                     
-//                    ZStack(alignment: .leading) {
-//                        Capsule()
-//                            .stroke(Color.red, lineWidth: 4)
-//
-//                        Rectangle()
-//                            .fill(Color.red)
-//                            .frame(width: 150)
-//                    }
-//                    .frame(width: 300, height: 50)
-//                    .clipShape(Capsule())
+                    Spacer()
                 }
-                
-                Spacer()
+                .padding()
             }
-            .padding()
+            
+            
         }
         .foregroundColor(.appBlue)
     }
@@ -79,6 +72,9 @@ extension ProfileView {
         .cornerRadius(8)
         .frame(maxWidth: .infinity)
         .shadow(color: Color(red: 0.7, green: 0.7, blue: 0.7), radius: 10)
+        .onTapGesture {
+            showDegreeProgressView = true
+        }
     }
 }
 

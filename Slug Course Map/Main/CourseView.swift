@@ -12,7 +12,9 @@ import SwiftData
 struct CourseView: View {
     
     let courseCode: String
-    @SwiftData.Query var selectedCourseDataArray: [CourseDataModel]
+//    @SwiftData.Query var selectedCourseDataArray: [CourseDataModel]
+    @Query var selectedCourseDataArray: [CourseDataModel] // MARK: here
+    
     @Environment(\.modelContext) var context
     
     @State var status: String = ""
@@ -21,6 +23,7 @@ struct CourseView: View {
 
     @AppStorage("taken_credits") var taken_credits: Int = 0
     @AppStorage("taking_credits") var taking_credits: Int = 0
+    @AppStorage("completed_courses") var completed_courses: [String] = []
     
     
     @Binding var showCourseView: Bool
@@ -52,13 +55,19 @@ extension CourseView {
             self.status = selectedCourseDataArray.first!.status
         }
         .onChange(of: status) { oldValue, newValue in
+            
+            guard oldValue != "" else { return }
+            
             selectedCourseDataArray.first!.status = newValue
-
+            
             if newValue == "available" {
                 if oldValue == "taking" {
                     taking_credits -= course!.credits
                 } else if oldValue == "taken" {
                     taken_credits -= course!.credits
+                    completed_courses.removeAll { course in
+                        course == courseCode
+                    }
                 }
             } else if newValue == "taking" {
                 if oldValue == "available" {
@@ -66,15 +75,23 @@ extension CourseView {
                 } else if oldValue == "taken" {
                     taken_credits -= course!.credits
                     taking_credits += course!.credits
+                    completed_courses.removeAll { course in
+                        course == courseCode
+                    }
                 }
             } else if newValue == "taken" {
                 if oldValue == "taking" {
                     taking_credits -= course!.credits
                     taken_credits += course!.credits
+                    completed_courses.append(course!.code)
                 } else if oldValue == "available" {
                     taken_credits += course!.credits
+                    completed_courses.append(course!.code)
                 }
             }
+            
+            HapticManager.manager.playHaptic(type: .light)
+            
         }
         .toolbar {
             

@@ -11,6 +11,8 @@
 		D8390A9A2A67786400E4AD63 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8390A992A67786400E4AD63 /* ProfileView.swift */; };
 		D83E14702A63986D002D6045 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D83E146F2A63986D002D6045 /* GoogleService-Info.plist */; };
 		D83E14732A639A9B002D6045 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D83E14722A639A9B002D6045 /* FirebaseFirestore */; };
+		D85247E92A7F942F008EF8B9 /* Singletons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85247E82A7F942F008EF8B9 /* Singletons.swift */; };
+		D853CB042A95B6BA0001389E /* DegreeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D853CB032A95B6BA0001389E /* DegreeProgressView.swift */; };
 		D8676F572A5BD3E5009A2C37 /* Slug_Course_MapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8676F562A5BD3E5009A2C37 /* Slug_Course_MapApp.swift */; };
 		D8676F592A5BD3E5009A2C37 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8676F582A5BD3E5009A2C37 /* ContentView.swift */; };
 		D8676F5B2A5BD3E6009A2C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8676F5A2A5BD3E6009A2C37 /* Assets.xcassets */; };
@@ -29,6 +31,8 @@
 		D805DF272A6F1C5000D3B494 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		D8390A992A67786400E4AD63 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D83E146F2A63986D002D6045 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D85247E82A7F942F008EF8B9 /* Singletons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singletons.swift; sourceTree = "<group>"; };
+		D853CB032A95B6BA0001389E /* DegreeProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DegreeProgressView.swift; sourceTree = "<group>"; };
 		D8676F532A5BD3E5009A2C37 /* Slug Course Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Slug Course Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8676F562A5BD3E5009A2C37 /* Slug_Course_MapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slug_Course_MapApp.swift; sourceTree = "<group>"; };
 		D8676F582A5BD3E5009A2C37 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,6 +60,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D853CB022A95B6A10001389E /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				D8390A992A67786400E4AD63 /* ProfileView.swift */,
+				D853CB032A95B6BA0001389E /* DegreeProgressView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		D8676F4A2A5BD3E5009A2C37 = {
 			isa = PBXGroup;
 			children = (
@@ -95,11 +108,11 @@
 			isa = PBXGroup;
 			children = (
 				D8676F582A5BD3E5009A2C37 /* ContentView.swift */,
+				D853CB022A95B6A10001389E /* Profile */,
 				D8C63F112A64659400BFEE89 /* AreaView.swift */,
 				D8C63F132A647F3F00BFEE89 /* CourseView.swift */,
 				D894B15A2A6E6DB20056A88B /* Course.swift */,
 				D8D641A42A6733E6004EEC82 /* CourseBookView.swift */,
-				D8390A992A67786400E4AD63 /* ProfileView.swift */,
 				D8C300322A691D9F00181AD1 /* CourseModel.swift */,
 				D89868B32A70FB9B002D4A56 /* CourseBookVM.swift */,
 			);
@@ -114,6 +127,7 @@
 				D8676F5A2A5BD3E6009A2C37 /* Assets.xcassets */,
 				D8D641A22A6733A5004EEC82 /* Extensions.swift */,
 				D89868B12A70E2E5002D4A56 /* PreviewsSample.swift */,
+				D85247E82A7F942F008EF8B9 /* Singletons.swift */,
 			);
 			path = Files;
 			sourceTree = "<group>";
@@ -206,7 +220,9 @@
 				D89868B42A70FB9B002D4A56 /* CourseBookVM.swift in Sources */,
 				D805DF282A6F1C5000D3B494 /* Test.swift in Sources */,
 				D8C300332A691D9F00181AD1 /* CourseModel.swift in Sources */,
+				D853CB042A95B6BA0001389E /* DegreeProgressView.swift in Sources */,
 				D8C63F142A647F3F00BFEE89 /* CourseView.swift in Sources */,
+				D85247E92A7F942F008EF8B9 /* Singletons.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

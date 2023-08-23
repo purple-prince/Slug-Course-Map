@@ -6,8 +6,9 @@
 //
 
 import SwiftUI
-import FirebaseFirestore
 import SwiftData
+import FirebaseFirestore
+
 
 struct AreaView: View {
     
@@ -18,7 +19,8 @@ struct AreaView: View {
     @State var rowAppearances: [String : (Color, Double)] = [ : ]
 
     @Environment(\.modelContext) var context
-    @SwiftData.Query var relevantCourses: [CourseDataModel]
+//    @SwiftData.Query var relevantCourses: [CourseDataModel]
+    @Query var relevantCourses: [CourseDataModel] //MARK: here
     
     // Detail Screen Vars
     

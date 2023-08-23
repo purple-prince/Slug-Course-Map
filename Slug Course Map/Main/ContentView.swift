@@ -14,7 +14,7 @@ struct ContentView: View {
     enum Tab { case profile, courseBook }
     
     @State var currentTab: Tab = .profile
-    @SwiftData.Query var th: [CourseDataModel]
+    //@SwiftData.Query var th: [CourseDataModel]
     @Environment(\.modelContext) var context
     
     @State var courseBookAreaData: [String : String] = [ : ]
@@ -67,6 +67,6 @@ extension ContentView {
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}
