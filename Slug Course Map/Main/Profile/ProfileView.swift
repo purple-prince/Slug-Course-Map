@@ -19,34 +19,27 @@ struct ProfileView: View {
         
     var body: some View {//180 req cred
         ZStack {
-            
-            if showDegreeProgressView {
-                DegreeProgressView(showDegreeProgressView: $showDegreeProgressView)
-            } else {
-                VStack {
-                    Text("Coursework")
-                        .font(Font.system(size: 48))
-                        .bold()
+            VStack {
+                Text("Coursework")
+                    .font(Font.system(size: 48))
+                    .bold()
+                
+                VStack(alignment: .leading) {
+                    Text("**Completed Credits:** \(taken_credits) / 180")
+                        .font(.title2)
                     
-                    VStack(alignment: .leading) {
-                        Text("**Completed Credits:** \(taken_credits) / 180")
-                            .font(.title2)
+                    Text("**Current Term Credits:** \(taking_credits)")
+                        .font(.title2)
                         
-                        Text("**Current Term Credits:** \(taking_credits)")
-                            .font(.title2)
-                            
-                        HStack { Spacer() }
-                    }
-                    .padding(.top, 48)
-                    
-                    degreeProgressButton
-                    
-                    Spacer()
+                    HStack { Spacer() }
                 }
-                .padding()
+                .padding(.top, 48)
+                
+                degreeProgressButton
+                
+                Spacer()
             }
-            
-            
+            .padding()
         }
         .foregroundColor(.appBlue)
     }

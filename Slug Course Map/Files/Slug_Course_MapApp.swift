@@ -32,7 +32,7 @@ struct Slug_Course_MapApp: App {
 //            view1()
             ContentView()
                 .preferredColorScheme(.light)
-//            Test()
+//            hDegreeProgressView()
         }
         .modelContainer(for: CourseDataModel.self)
     }

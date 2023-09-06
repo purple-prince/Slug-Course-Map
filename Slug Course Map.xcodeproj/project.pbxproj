@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		D805DF282A6F1C5000D3B494 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = D805DF272A6F1C5000D3B494 /* Test.swift */; };
+		D81153322A980C2700446EEF /* IDEUtils in Frameworks */ = {isa = PBXBuildFile; productRef = D81153312A980C2700446EEF /* IDEUtils */; };
+		D81153342A980C2700446EEF /* SwiftDiagnostics in Frameworks */ = {isa = PBXBuildFile; productRef = D81153332A980C2700446EEF /* SwiftDiagnostics */; };
+		D81153362A980C2700446EEF /* SwiftOperators in Frameworks */ = {isa = PBXBuildFile; productRef = D81153352A980C2700446EEF /* SwiftOperators */; };
+		D81153382A980C2700446EEF /* SwiftParser in Frameworks */ = {isa = PBXBuildFile; productRef = D81153372A980C2700446EEF /* SwiftParser */; };
+		D811533A2A980C2700446EEF /* SwiftParserDiagnostics in Frameworks */ = {isa = PBXBuildFile; productRef = D81153392A980C2700446EEF /* SwiftParserDiagnostics */; };
 		D8390A9A2A67786400E4AD63 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8390A992A67786400E4AD63 /* ProfileView.swift */; };
 		D83E14702A63986D002D6045 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D83E146F2A63986D002D6045 /* GoogleService-Info.plist */; };
 		D83E14732A639A9B002D6045 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D83E14722A639A9B002D6045 /* FirebaseFirestore */; };
@@ -53,7 +58,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D81153342A980C2700446EEF /* SwiftDiagnostics in Frameworks */,
 				D83E14732A639A9B002D6045 /* FirebaseFirestore in Frameworks */,
+				D811533A2A980C2700446EEF /* SwiftParserDiagnostics in Frameworks */,
+				D81153382A980C2700446EEF /* SwiftParser in Frameworks */,
+				D81153362A980C2700446EEF /* SwiftOperators in Frameworks */,
+				D81153322A980C2700446EEF /* IDEUtils in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +160,11 @@
 			name = "Slug Course Map";
 			packageProductDependencies = (
 				D83E14722A639A9B002D6045 /* FirebaseFirestore */,
+				D81153312A980C2700446EEF /* IDEUtils */,
+				D81153332A980C2700446EEF /* SwiftDiagnostics */,
+				D81153352A980C2700446EEF /* SwiftOperators */,
+				D81153372A980C2700446EEF /* SwiftParser */,
+				D81153392A980C2700446EEF /* SwiftParserDiagnostics */,
 			);
 			productName = "Slug Course Map";
 			productReference = D8676F532A5BD3E5009A2C37 /* Slug Course Map.app */;
@@ -181,6 +196,7 @@
 			mainGroup = D8676F4A2A5BD3E5009A2C37;
 			packageReferences = (
 				D83E14712A639A9B002D6045 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				D81153302A980C2700446EEF /* XCRemoteSwiftPackageReference "swift-syntax" */,
 			);
 			productRefGroup = D8676F542A5BD3E5009A2C37 /* Products */;
 			projectDirPath = "";
@@ -423,6 +439,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D81153302A980C2700446EEF /* XCRemoteSwiftPackageReference "swift-syntax" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-syntax.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 508.0.1;
+			};
+		};
 		D83E14712A639A9B002D6045 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -434,6 +458,31 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D81153312A980C2700446EEF /* IDEUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D81153302A980C2700446EEF /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = IDEUtils;
+		};
+		D81153332A980C2700446EEF /* SwiftDiagnostics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D81153302A980C2700446EEF /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftDiagnostics;
+		};
+		D81153352A980C2700446EEF /* SwiftOperators */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D81153302A980C2700446EEF /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftOperators;
+		};
+		D81153372A980C2700446EEF /* SwiftParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D81153302A980C2700446EEF /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftParser;
+		};
+		D81153392A980C2700446EEF /* SwiftParserDiagnostics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D81153302A980C2700446EEF /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftParserDiagnostics;
+		};
 		D83E14722A639A9B002D6045 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D83E14712A639A9B002D6045 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

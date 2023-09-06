@@ -92,7 +92,7 @@ extension AreaView {
             finalAppearances[courseCodes[i]] = courseAppearances[i]
         }
         
-        print("apps:" + finalAppearances.description)
+        //print("apps:" + finalAppearances.description)
         
         return finalAppearances
         
