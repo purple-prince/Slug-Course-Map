@@ -11,7 +11,7 @@ import SwiftData
 
 struct ContentView: View {
     
-    enum Tab { case profile, courseBook }
+    enum Tab { case profile, courseBook, map }
     
     @State var currentTab: Tab = .profile
     //@SwiftData.Query var th: [CourseDataModel]
@@ -27,6 +27,8 @@ extension ContentView {
             VStack {
                 if currentTab == .profile {
                     ProfileView()
+                } else if currentTab == .map {
+                    MapView()
                 } else {
                     CourseBookView(allAreasAndCodes: $courseBookAreaData)
                 }
@@ -59,6 +61,10 @@ extension ContentView {
                 }
             
             Spacer()
+            
+            Image(systemName: currentTab == .map ? "map.fill" : "map")
+                .font(.title)
+                .onTapGesture { currentTab = .map }
         }
         .foregroundColor(.appYellow)
         .padding(.top, 8)
@@ -66,7 +72,3 @@ extension ContentView {
         .background(Color.appPrimary)
     }
 }
-
-//#Preview {
-//    ContentView()
-//}

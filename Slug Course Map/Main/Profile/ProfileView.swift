@@ -15,31 +15,37 @@ struct ProfileView: View {
     @AppStorage("selected_major") var selected_major: String = "Select Major"
     
     @State var showDegreeProgressView: Bool = false
+    @State var showDegreeView = false
     
         
     var body: some View {//180 req cred
         ZStack {
-            VStack {
-                Text("Coursework")
-                    .font(Font.system(size: 48))
-                    .bold()
-                
-                VStack(alignment: .leading) {
-                    Text("**Completed Credits:** \(taken_credits) / 180")
-                        .font(.title2)
+            
+            if showDegreeView {
+                DegreeView(showDegreeView: $showDegreeView)
+            } else {
+                VStack {
+                    Text("Coursework")
+                        .font(Font.system(size: 48))
+                        .bold()
                     
-                    Text("**Current Term Credits:** \(taking_credits)")
-                        .font(.title2)
+                    VStack(alignment: .leading) {
+                        Text("**Completed Credits:** \(taken_credits) / 180")
+                            .font(.title2)
                         
-                    HStack { Spacer() }
+                        Text("**Current Term Credits:** \(taking_credits)")
+                            .font(.title2)
+                            
+                        HStack { Spacer() }
+                    }
+                    .padding(.top, 48)
+                                    
+                    degreeProgressButton
+                    
+                    Spacer()
                 }
-                .padding(.top, 48)
-                
-                degreeProgressButton
-                
-                Spacer()
+                .padding()
             }
-            .padding()
         }
         .foregroundColor(.appBlue)
     }
@@ -66,7 +72,8 @@ extension ProfileView {
         .frame(maxWidth: .infinity)
         .shadow(color: Color(red: 0.7, green: 0.7, blue: 0.7), radius: 10)
         .onTapGesture {
-            showDegreeProgressView = true
+            //showDegreeProgressView = true
+            showDegreeView = true
         }
     }
 }
