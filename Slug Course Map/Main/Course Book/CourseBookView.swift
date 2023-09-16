@@ -54,21 +54,4 @@ extension CourseBookView {
             }
         }
     }
-    
-//    // TODO: Unused
-//    func loadSelectedCourseCodes(forArea area: String) {
-//        let db = Firestore.firestore()
-//        
-//        db.collection("areasOfStudy").document(area).getDocument { snapshot, error in
-//            if let error = error { print(error.localizedDescription); return }
-//            if let doc = snapshot {
-//                selectedAreaCode = doc["code"] as? String ?? ""
-//                selectedAreaCourseCodes = doc["codes"] as? [String] ?? ["Error :("]
-//            }
-//        }
-//    }
 }
-
-//#Preview {
-//    CourseBookView(allAreasOfStudy: .constant([]))//areasHaveBeenCached: false)
-//}

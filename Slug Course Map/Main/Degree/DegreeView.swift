@@ -46,7 +46,10 @@ extension DegreeView {
                     
                     main
                     
-                    backButton
+                    BackButton {
+                        showDegreeView = false
+                    }
+                    .padding()
                 }
                 .onAppear {
                     loadDegrees()
@@ -98,27 +101,21 @@ extension DegreeView {
                     Text("B.A.")
                         .foregroundStyle(degreeTypeSelected == .ba ? Color.appPrimary : Color.gray)
                         .bold(degreeTypeSelected == .ba)
-                        .onTapGesture {
-                            degreeTypeSelected = .ba
-                        }
+                        .onTapGesture { degreeTypeSelected = .ba }
                     
                     Spacer()
                     
                     Text("B.S.")
                         .foregroundStyle(degreeTypeSelected == .bs ? Color.appPrimary : Color.gray)
                         .bold(degreeTypeSelected == .bs)
-                        .onTapGesture {
-                            degreeTypeSelected = .bs
-                        }
+                        .onTapGesture { degreeTypeSelected = .bs }
                     
                     Spacer()
                     
                     Text("Minor")
                         .foregroundStyle(degreeTypeSelected == .minor ? Color.appPrimary : Color.gray)
                         .bold(degreeTypeSelected == .minor)
-                        .onTapGesture {
-                            degreeTypeSelected = .minor
-                        }
+                        .onTapGesture { degreeTypeSelected = .minor }
                     
                     Spacer()
                 }
@@ -149,24 +146,6 @@ extension DegreeView {
             Spacer()
         }
         .foregroundStyle(Color.appPrimary)
-    }
-    
-    var backButton: some View {
-        VStack {
-            HStack {
-                Image(systemName: "chevron.left")
-                    .font(.title)
-                    .foregroundColor(.appPrimary)
-                    .onTapGesture {
-                        showDegreeView = false
-                    }
-                
-                Spacer()
-            }
-            
-            Spacer()
-        }
-        .padding()
     }
 }
 

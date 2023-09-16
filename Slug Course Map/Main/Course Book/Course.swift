@@ -23,6 +23,10 @@ struct Course: Identifiable {
     let genEdCode: String?
     let repeatableForCredit: Bool?
     let preReqCodes: String?
+    
+    var hasPrerequisites: Bool {
+        return preReqCodes != nil && !preReqCodes!.isEmpty
+    }
 }
 
 

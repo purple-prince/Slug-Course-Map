@@ -10,11 +10,10 @@ import FirebaseCore
 import SwiftData
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-    return true
-  }
+    func application(_ application: UIApplication,didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
 }
 
 
@@ -29,51 +28,9 @@ struct Slug_Course_MapApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            view1()
             ContentView()
                 .preferredColorScheme(.light)
-//            hDegreeProgressView()
         }
         .modelContainer(for: CourseDataModel.self)
     }
-}
-
-
-
-
-
-struct view2: View {
-    
-    init(h: String) {
-        print(h)
-    }
-    
-    var body: some View {
-        ZStack {}
-    }
-}
-
-struct view1: View {
-    
-    var body: some View {
-        List {
-            ForEach(0..<10) { n in
-                NavigationLink(destination: view2(h: n.description)) {
-                    Text("s")
-                }
-            }
-        }
-    }
-    
-//    @AppStorage("array") var array: [String : String] = [:]
-//    
-//    var body: some View {
-//        
-//        Picker("", selection: $array["item1"]) {
-//            Text("value 1").tag(Optional("value1"))
-//            Text("value 2").tag(Optional("value2"))
-//            Text("value 3").tag(Optional("value3"))
-//        }
-//        .pickerStyle(SegmentedPickerStyle())
-//    }
 }

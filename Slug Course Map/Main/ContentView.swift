@@ -15,7 +15,7 @@ struct ContentView: View {
     
     @State var currentTab: Tab = .profile
     //@SwiftData.Query var th: [CourseDataModel]
-    @Environment(\.modelContext) var context
+    //@Environment(\.modelContext) var context
     
     @State var courseBookAreaData: [String : String] = [ : ]
     
@@ -65,10 +65,16 @@ extension ContentView {
             Image(systemName: currentTab == .map ? "map.fill" : "map")
                 .font(.title)
                 .onTapGesture { currentTab = .map }
+            
+            Spacer()
         }
         .foregroundColor(.appYellow)
         .padding(.top, 8)
         .padding(.horizontal)
         .background(Color.appPrimary)
     }
+}
+
+#Preview {
+    ContentView()
 }

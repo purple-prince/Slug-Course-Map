@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct BackButton: View {
+    
+    let action: () -> ()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                
+                Image(systemName: "chevron.left")
+                    .font(.title)
+                    .foregroundColor(.appPrimary)
+                    .onTapGesture {
+                        action()
+                    }
+                
+                Spacer()
+            }
+            
+            Spacer()
+        }
     }
-}
-
-#Preview {
-    BackButton()
 }

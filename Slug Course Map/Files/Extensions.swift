@@ -37,10 +37,10 @@ extension Dictionary: RawRepresentable where Key == String, Value == String {
     }
 
     public var rawValue: String {
-        guard let data = try? JSONEncoder().encode(self),   // data is  Data type
-              let result = String(data: data, encoding: .utf8) // coerce NSData to String
+        guard let data = try? JSONEncoder().encode(self),
+              let result = String(data: data, encoding: .utf8) // nsdata to String
         else {
-            return "{}"  // empty Dictionary resprenseted as String
+            return "{}"
         }
         return result
     }

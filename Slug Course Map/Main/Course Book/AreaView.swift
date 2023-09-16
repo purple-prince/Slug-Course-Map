@@ -37,35 +37,6 @@ struct AreaView: View {
     }
 }
 
-////struct ContentView: View {
-////    var body: some View {
-////        List {
-////            ForEach(...) {
-////                NavigationLink("", destination: SubView(...))
-////            }
-////        }
-////    }
-////}
-////
-////struct SubView: View {
-////    
-////    @Query var data: [DataModel]
-////    
-////    init(id: String) {
-////        self.data = Query(filter: #Predicate { $0.id == id })
-////    }
-////    
-////    var body: some View {
-////        List {
-////            ForEach(...) {
-////                NavigationLink("", destination: SubView(...))
-////            }
-////        }
-////    }
-////}
-//
-
-
 extension AreaView {
     
     func getRowAppearances() -> [String : (Color, Double)] {
@@ -91,8 +62,6 @@ extension AreaView {
         for i in 0..<courseCodes.count {
             finalAppearances[courseCodes[i]] = courseAppearances[i]
         }
-        
-        //print("apps:" + finalAppearances.description)
         
         return finalAppearances
         
@@ -145,25 +114,6 @@ extension AreaView {
             }
         }
     }
-
-        
-////        NavigationStack {
-////            List {
-////                ForEach(allCourseCodes, id: \.self) { code in // i.e. YIDD 99F
-////                    
-////                    NavigationLink(destination: CourseView(courseCode: code.lowercased(), areaTitle: areaTitle)) {
-////                        Text(code)
-////                            .foregroundColor(.appPrimary)
-////                        
-////                    }
-////                    
-////                    //.listRowBackground(getCompletionColor(code: code)?.0)
-////                    //.opacity(getCompletionColor(code: code)?.1 ?? 1.0)
-////                }
-////            }
-////            .navigationTitle(areaTitle)
-////        }
-//    }
 }
 
 extension AreaView {
@@ -182,8 +132,3 @@ extension AreaView {
         }
     }
 }
-
-//#Preview {
-//    AreaView(areaTitle: "Yiddish", areaCode: "yidd")
-//        //.modelContext(CourseDataModel.self)
-//}

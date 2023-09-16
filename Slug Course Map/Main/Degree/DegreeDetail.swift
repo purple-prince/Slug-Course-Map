@@ -31,7 +31,10 @@ extension DegreeDetail {
             
             main
             
-            backButton
+            BackButton {
+                degreeTitle = nil
+            }
+            .padding()
         }
         .foregroundStyle(Color.appPrimary)
         .onAppear {
@@ -40,116 +43,8 @@ extension DegreeDetail {
     }
 }
 
-
-
-
 extension DegreeDetail {
-    
-//    var poop: some View {
-//        VStack {
-//            VStack {
-//                
-//                Button(action: {
-//                    withAnimation { dropdownStates["description"]!.toggle() }
-//                }) {
-//                    HStack {
-//                        Text("Description")
-//                        
-//                        Spacer()
-//                        
-//                        Image(systemName: "chevron.right")
-//                            .rotationEffect(Angle(degrees: dropdownStates["description"]! ? -270 : 0))
-//                    }
-//                    .font(.title2)
-//                }
-//                
-//                if dropdownStates["description"]! {
-//                    VStack {
-//                        Rectangle()
-//                            .frame(height: 1)
-//                        
-//                        Text(degree.description)
-//                            .padding(.top, 8)
-//                    }
-//
-//                }
-//                
-//            }
-//            
-//            
-//            VStack {
-//                
-//                Button(action: {
-//                    withAnimation { dropdownStates["plo"]!.toggle() }
-//                }) {
-//                    HStack {
-//                        Text("Learning Outcomes")
-//                        
-//                        Spacer()
-//                        
-//                        Image(systemName: "chevron.right")
-//                            .rotationEffect(Angle(degrees: dropdownStates["plo"]! ? -270 : 0))
-//                    }
-//                    .font(.title2)
-//                }
-//                
-//                if dropdownStates["plo"]! {
-//                    VStack(alignment: .leading) {
-//                        Rectangle()
-//                            .frame(height: 1)
-//                        
-//                        ForEach(Array(degree.plo.keys), id: \.self) { key in
-//                            VStack(alignment: .leading) {
-//                                Text(key)
-//                                    .bold()
-//                                
-//                                Text(degree.plo[key]!)
-//                                    .font(.callout)
-//                            }
-//                            .padding(.vertical, 4)
-//                        }
-//                    }
-//                    
-//                        
-//                }
-//                
-//            }
-//            
-//            VStack {
-//                
-//                Button(action: {
-//                    withAnimation { dropdownStates["gettingStarted"]!.toggle() }
-//                }) {
-//                    HStack {
-//                        Text("Freshmen: Getting Started")
-//                        
-//                        Spacer()
-//                        
-//                        Image(systemName: "chevron.right")
-//                            .rotationEffect(Angle(degrees: dropdownStates["gettingStarted"]! ? -270 : 0))
-//                    }
-//                    .font(.title2)
-//                }
-//                
-//                if dropdownStates["gettingStarted"]! {
-//                    VStack(alignment: .leading) {
-//                        Rectangle()
-//                            .frame(height: 1)
-//                        
-//                        if degree.isIntensive {
-//                            Text("intensive lol")
-//                        } else {
-//                            Text("This major is **not** highly sequential or course intensive.")
-//                        }
-//                    }
-//                    
-//                        
-//                }
-//                
-//            }
-//        }
-//    }
-    
+        
     func dropdownItem<Content: View>(buttonStateKey: String, title: String, @ViewBuilder body: () -> Content) -> some View {
         VStack {
             Button(action: {
@@ -233,8 +128,10 @@ extension DegreeDetail {
     
     var main: some View {
         VStack {
-            Text(degreeTitle!)
+            
+            Text(degreeTitle ?? "")
                 .font(.largeTitle)
+                .padding(.leading, (degreeTitle ?? "").count > 15 ? 32 : 0)
             
             tabPicker
             
@@ -256,28 +153,42 @@ extension DegreeDetail {
                                 VStack(alignment: .leading) {
                                     Rectangle()
                                         .frame(height: 1)
-            
-                                    ForEach(Array(degree.plo.keys), id: \.self) { key in
-                                        VStack(alignment: .leading) {
-                                            Text(key)
-                                                .bold()
-            
-                                            Text(degree.plo[key]!)
-                                                .font(.callout)
+                                    
+                                    if let ploDict = degree.ploDict {
+                                        ForEach(Array(ploDict.keys), id: \.self) { key in
+                                            VStack(alignment: .leading) {
+                                                Text(key)
+                                                    .bold()
+                
+                                                Text(ploDict[key]!)
+                                                    .font(.callout)
+                                            }
+                                            .padding(.vertical, 4)
                                         }
-                                        .padding(.vertical, 4)
+                                    } else if let ploArr = degree.ploArr {
+                                        ForEach(ploArr, id: \.self) { plo in
+                                            VStack(alignment: .leading) {
+                
+                                                Text(plo)
+                                                    .font(.callout)
+                                            }
+                                            .padding(.vertical, 4)
+                                        }
                                     }
                                 }
                             }
+                            
                             dropdownItem(buttonStateKey: "gettingStarted", title: "Freshmen: Getting Started") {
                                 VStack(alignment: .leading) {
                                     Rectangle()
                                         .frame(height: 1)
-            
-                                    if degree.isIntensive {
-                                        Text("intensive lol")
-                                    } else {
-                                        Text("This major is **not** highly sequential or course intensive.")
+                                    
+                                    if let isIntensive = degree.isIntensive {
+                                        if isIntensive {
+                                            Text("This major **is** high sequential or course intensive. Students who intend to pursue this major must begin taking classes for the major in their first quarter at UCSC.")
+                                        } else {
+                                            Text("This major is **not** highly sequential or course intensive.")
+                                        }
                                     }
                                 }
                             }
@@ -301,24 +212,6 @@ extension DegreeDetail {
         }
         .padding(.top, 12)
     }
-    
-    var backButton: some View {
-        VStack {
-            HStack {
-                Image(systemName: "chevron.left")
-                    .font(.title)
-                    .foregroundColor(.appPrimary)
-                    .onTapGesture {
-                        degreeTitle = nil
-                    }
-                
-                Spacer()
-            }
-            
-            Spacer()
-        }
-        .padding()
-    }
 }
 
 extension DegreeDetail {
@@ -335,9 +228,10 @@ extension DegreeDetail {
                     self.degree = Degree(
                         description: doc["intro"] as? String ?? "Error",
                         title: degreeTitle ?? "Error",
-                        plo: doc["plo"] as? [String : String] ?? ["Error loading data :(":""],
-                        isIntensive: doc["isIntensive"] as? Bool ?? false,
-                        websiteUrl: doc["website"] as? String ?? ""
+                        ploDict: doc["plo"] as? [String : String],
+                        ploArr: doc["plo"] as? [String],
+                        isIntensive: doc["isIntensive"] as? Bool,
+                        websiteUrl: doc["website"] as? String
                     )
                 }
             }
@@ -347,11 +241,12 @@ extension DegreeDetail {
 struct Degree {
     let description: String
     let title: String
-    let plo: [String : String]
-    let isIntensive: Bool
+    let ploDict: [String : String]?
+    let ploArr: [String]?
+    let isIntensive: Bool?
     let websiteUrl: String?
 }
 
 #Preview {
-    DegreeDetail(degreeTitle: .constant("Anthropology"), degreeType: "ba")
+    DegreeDetail(degreeTitle: .constant("Applied Linguistics and Multilingualism"), degreeType: "ba")
 }
