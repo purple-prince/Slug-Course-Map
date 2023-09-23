@@ -8,7 +8,7 @@
 import SwiftUI
 import FirebaseFirestore
 import SwiftData
-
+// this is a text change
 struct ContentView: View {
     
     enum Tab { case profile, courseBook, map }
