@@ -250,7 +250,7 @@ extension CourseView {
          ZStack {
              RoundedRectangle(cornerRadius: 12)
                  .foregroundStyle(.white)
-                 .blur(radius: 12)
+                 .blur(radius: 12) //test change
              
              VStack {
                  
