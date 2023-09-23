@@ -23,18 +23,16 @@ struct ContentView: View {
 
 extension ContentView {
     var body: some View {
-        VStack {
-            VStack {
-                if currentTab == .profile {
-                    ProfileView()
-                } else if currentTab == .map {
-                    MapView()
-                } else {
-                    CourseBookView(allAreasAndCodes: $courseBookAreaData)
-                }
-                Spacer()
-                tabs
+        VStack(spacing: 0) {
+            if currentTab == .profile {
+                ProfileView()
+            } else if currentTab == .map {
+                MapView()
+            } else {
+                CourseBookView(allAreasAndCodes: $courseBookAreaData)
             }
+            
+            tabs
         }
     }
 }

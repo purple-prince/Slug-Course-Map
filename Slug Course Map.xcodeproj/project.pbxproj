@@ -131,8 +131,8 @@
 		D8C63F0F2A64653F00BFEE89 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				D8E22EA82AAAC069007917A2 /* Degree */,
 				D8676F582A5BD3E5009A2C37 /* ContentView.swift */,
+				D8E22EA82AAAC069007917A2 /* Degree */,
 				D8E22EA72AAABCDA007917A2 /* Course Book */,
 				D874B2CC2AA8579F00B80C3F /* Map */,
 				D853CB022A95B6A10001389E /* Profile */,

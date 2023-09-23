@@ -20,6 +20,11 @@ struct CourseView: View {
     @State var status: String = ""
     let areaTitle: String
     @State var course: Course?
+    
+    // course rate popup
+    @State var showRateCoursePopup: Bool = false
+    @State var difficultyStars: Int = 0
+    @State var satisfactionStars: Int = 0
 
     @AppStorage("taken_credits") var taken_credits: Int = 0
     @AppStorage("taking_credits") var taking_credits: Int = 0
@@ -134,65 +139,191 @@ extension CourseView {
  extension CourseView {
      
      var courseDetails: some View {
-         VStack {
-             VStack(spacing: 8) {
-                 Text(course!.title)
-                     .font(.largeTitle)
-                 
-                 HStack {
-                     Text(courseCode.uppercased())
+         ZStack {
+             VStack {
+                 VStack(spacing: 8) {
+                     Text(course!.title)
+                         .font(.largeTitle)
                      
-                     Circle()
-                         .frame(width: 5)
-                     
-                     Text("\(course!.credits) credits")
-                 }
-             }
+                     HStack {
+                         Text(courseCode.uppercased())
                          
-             Text(course!.description)
-                 .font(.title3)
-                 .padding(.vertical, 48)
-                 .frame(maxWidth: .infinity, alignment: .leading)
-             
-             VStack(alignment: .leading, spacing: 8) {
+                         Circle()
+                             .frame(width: 5)
+                         
+                         Text("\(course!.credits) credits")
+                     }
+                 }
+                             
+                 Text(course!.description)
+                     .font(.title3)
+                     .padding(.vertical, 48)
+                     .frame(maxWidth: .infinity, alignment: .leading)
                  
-                 if let preReqs = course!.preReqCodes { Text("**Prerequisites:** \(preReqs)") }
+                 VStack(alignment: .leading, spacing: 8) {
+                     
+                     if let preReqs = course!.preReqCodes { Text("**Prerequisites:** \(preReqs)") }
+                     
+                     if let instructor = course!.instructor { Text("**Instructor:** \(instructor)") }
+                     
+                     if let genEdCode = course!.genEdCode { Text("**Gen Ed Code:** \(genEdCode.uppercased())") }
+                     
+                     if let qsOffered = course!.quartersOffered { Text("**Quarters Offered:** \(qsOffered)") }
+                     
+                     if let _ = course!.repeatableForCredit { Text("**Repeatable for Credit:** Yes") }
+                     
+                     Spacer()
+                 }
+                 .frame(maxWidth: .infinity)
                  
-                 if let instructor = course!.instructor { Text("**Instructor:** \(instructor)") }
-                 
-                 if let genEdCode = course!.genEdCode { Text("**Gen Ed Code:** \(genEdCode.uppercased())") }
-                 
-                 if let qsOffered = course!.quartersOffered { Text("**Quarters Offered:** \(qsOffered)") }
-                 
-                 if let _ = course!.repeatableForCredit { Text("**Repeatable for Credit:** Yes") }
+                 VStack(alignment: .leading) {
+                     Rectangle()
+                         .frame(height: 2)
+                        
+                     HStack {
+                         Text("Reviews")
+                         
+                         VStack(alignment: .leading) {
+                             Text("4.3 / 5")
+                             
+                             ForEach(1..<6) { num in
+                                 Image("star")
+                                     .foregroundStyle(.yellow)
+                             }
+                         }
+                     }
+                     
+                     Button(action: {
+                         showRateCoursePopup = true
+                     }) {
+                         Text("Rate Course")
+                     }
+                 }
                  
                  Spacer()
-             }
-             
-             Spacer()
-             
-             VStack {
-                 Text("Status")
-                     .font(.title)
-                     .bold()
+                 
+                 
+                 
+                 VStack {
+                     Text("Status")
+                         .font(.title)
+                         .bold()
 
-                 Picker("", selection: $status) {
+                     Picker("", selection: $status) {
 
-                     Text("Available").tag("available")
-                         .font(.largeTitle)
-                                         
-                     Text("Taking").tag("taking")
-                     
-                     Text("Taken").tag("taken")
-                     
+                         Text("Available").tag("available")
+                             .font(.largeTitle)
+                                             
+                         Text("Taking").tag("taking")
+                         
+                         Text("Taken").tag("taken")
+                         
+                     }
+                     .pickerStyle(SegmentedPickerStyle())
+                     .padding(.horizontal)
+                     .disabled(course == nil)
                  }
-                 .pickerStyle(SegmentedPickerStyle())
-                 .padding(.horizontal)
-                 .disabled(course == nil)
+             }
+             .padding()
+             
+             if showRateCoursePopup {
+                 rateCoursePopup
              }
          }
-         .padding()
-         
+     }
+     
+     func submitCourseReview(areaTitle: String, courseName: String, review: Review) {
+         let db = Firestore.firestore()
+         db.collection("areasOfStudy")
+             .document(areaTitle)
+             .collection("courses")
+             .document(courseName)
+             .updateData([
+                 "numReviews" : FieldValue.increment(1.0),
+                 "totalDifficultyStars" : FieldValue.increment(review.difficultyStars),
+                 "totalSatisfactionStars" : FieldValue.increment(review.satisfactionStars),
+                 //"allReviews" : append to firestore array...
+             ])
+     }
+     
+     var rateCoursePopup: some View {
+         ZStack {
+             RoundedRectangle(cornerRadius: 12)
+                 .foregroundStyle(.white)
+                 .blur(radius: 12)
+             
+             VStack {
+                 
+                 Image(systemName: "xmark")
+                     .font(.title)
+                     .onTapGesture {
+                         showRateCoursePopup = false
+                     }
+                 
+                 Text("Write a review")
+                     .font(.title)
+                 
+                 VStack {
+                     HStack {
+                         Text("Difficulty")
+                         
+                         HStack {
+                             ForEach(1..<6) { num in
+                                 Image(systemName: difficultyStars >= num ? "star.fill" : "star")
+                                     .foregroundStyle(.yellow)
+                                     .onTapGesture {
+                                         if difficultyStars != num {
+                                             difficultyStars = num
+                                         } else {
+                                             difficultyStars -= 1
+                                         }
+                                         
+                                         HapticManager.manager.playHaptic(type: .soft)
+                                     }
+                             }
+                         }
+                     }
+                     
+                     HStack {
+                         Text("Satisfaction")
+                         
+                         HStack {
+                             ForEach(1..<6) { num in
+                                 Image(systemName: satisfactionStars >= num ? "star.fill" : "star")
+                                     .foregroundStyle(.yellow)
+                                     .onTapGesture {
+                                         if satisfactionStars != num {
+                                             satisfactionStars = num
+                                         } else {
+                                             satisfactionStars -= 1
+                                         }
+                                         
+                                         HapticManager.manager.playHaptic(type: .soft)
+                                     }
+                             }
+                         }
+                     }
+                     
+                     Button(action: {
+                         
+                         if difficultyStars > 0 && satisfactionStars > 0 {
+                             let review = Review(difficultyStars: Double(difficultyStars), satisfactionStars: Double(satisfactionStars))
+                             submitCourseReview(areaTitle: "", courseName: "", review: review)
+                         }
+                     }) {
+                         Text("Submit")
+                             .font(.title2)
+                             .padding()
+                             .background(
+                                 RoundedRectangle(cornerRadius: 12)
+                                     .foregroundStyle(Color.appBlue)
+                             )
+                     }
+                 }
+             }
+             .foregroundStyle(Color.appBlue)
+             .padding()
+         }
      }
  }
 

@@ -140,50 +140,55 @@ extension DegreeDetail {
                     ScrollView {
                         VStack {
                             
-                            dropdownItem(buttonStateKey: "description", title: "Description") {
-                                VStack {
-                                    Rectangle()
-                                        .frame(height: 1)
-            
-                                    Text(degree.description)
-                                        .padding(.top, 8)
+                            if let description = degree.description {
+                                dropdownItem(buttonStateKey: "description", title: "Description") {
+                                    VStack {
+                                        Rectangle()
+                                            .frame(height: 1)
+                
+                                        Text(description)
+                                            .padding(.top, 8)
+                                    }
                                 }
                             }
-                            dropdownItem(buttonStateKey: "plo", title: "Learning Outcomes") {
-                                VStack(alignment: .leading) {
-                                    Rectangle()
-                                        .frame(height: 1)
-                                    
-                                    if let ploDict = degree.ploDict {
-                                        ForEach(Array(ploDict.keys), id: \.self) { key in
-                                            VStack(alignment: .leading) {
-                                                Text(key)
-                                                    .bold()
-                
-                                                Text(ploDict[key]!)
-                                                    .font(.callout)
+                            
+                            if degree.ploArr != nil || degree.ploDict != nil {
+                                dropdownItem(buttonStateKey: "plo", title: "Learning Outcomes") {
+                                    VStack(alignment: .leading) {
+                                        Rectangle()
+                                            .frame(height: 1)
+                                        
+                                        if let ploDict = degree.ploDict {
+                                            ForEach(Array(ploDict.keys), id: \.self) { key in
+                                                VStack(alignment: .leading) {
+                                                    Text(key)
+                                                        .bold()
+                    
+                                                    Text(ploDict[key]!)
+                                                        .font(.callout)
+                                                }
+                                                .padding(.vertical, 4)
                                             }
-                                            .padding(.vertical, 4)
-                                        }
-                                    } else if let ploArr = degree.ploArr {
-                                        ForEach(ploArr, id: \.self) { plo in
-                                            VStack(alignment: .leading) {
-                
-                                                Text(plo)
-                                                    .font(.callout)
+                                        } else if let ploArr = degree.ploArr {
+                                            ForEach(ploArr, id: \.self) { plo in
+                                                VStack(alignment: .leading) {
+                    
+                                                    Text(plo)
+                                                        .font(.callout)
+                                                }
+                                                .padding(.vertical, 4)
                                             }
-                                            .padding(.vertical, 4)
                                         }
                                     }
                                 }
                             }
                             
-                            dropdownItem(buttonStateKey: "gettingStarted", title: "Freshmen: Getting Started") {
-                                VStack(alignment: .leading) {
-                                    Rectangle()
-                                        .frame(height: 1)
-                                    
-                                    if let isIntensive = degree.isIntensive {
+                            if let isIntensive = degree.isIntensive {
+                                dropdownItem(buttonStateKey: "gettingStarted", title: "Freshmen: Getting Started") {
+                                    VStack(alignment: .leading) {
+                                        Rectangle()
+                                            .frame(height: 1)
+                                        
                                         if isIntensive {
                                             Text("This major **is** high sequential or course intensive. Students who intend to pursue this major must begin taking classes for the major in their first quarter at UCSC.")
                                         } else {
@@ -226,7 +231,7 @@ extension DegreeDetail {
                 if let error = error { print(error.localizedDescription); return }
                 if let doc = snapshot {
                     self.degree = Degree(
-                        description: doc["intro"] as? String ?? "Error",
+                        description: (doc["intro"] as? String ?? "Error").replacingOccurrences(of: "\\n", with: "\n"),
                         title: degreeTitle ?? "Error",
                         ploDict: doc["plo"] as? [String : String],
                         ploArr: doc["plo"] as? [String],
@@ -239,7 +244,7 @@ extension DegreeDetail {
 }
 
 struct Degree {
-    let description: String
+    let description: String?
     let title: String
     let ploDict: [String : String]?
     let ploArr: [String]?
@@ -248,5 +253,5 @@ struct Degree {
 }
 
 #Preview {
-    DegreeDetail(degreeTitle: .constant("Applied Linguistics and Multilingualism"), degreeType: "ba")
+    DegreeDetail(degreeTitle: .constant("Literature"), degreeType: "ba")
 }
