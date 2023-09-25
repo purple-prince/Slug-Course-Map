@@ -12,7 +12,6 @@ import SwiftData
 struct CourseView: View {
     
     let courseCode: String
-//    @SwiftData.Query var selectedCourseDataArray: [CourseDataModel]
     @Query var selectedCourseDataArray: [CourseDataModel] // MARK: here
     
     @Environment(\.modelContext) var context
@@ -25,7 +24,8 @@ struct CourseView: View {
     @State var showRateCoursePopup: Bool = false
     @State var difficultyStars: Int = 0
     @State var satisfactionStars: Int = 0
-
+    @State var totalReviews: Int = 0
+    
     @AppStorage("taken_credits") var taken_credits: Int = 0
     @AppStorage("taking_credits") var taking_credits: Int = 0
     @AppStorage("completed_courses") var completed_courses: [String] = []
@@ -132,96 +132,156 @@ extension CourseView {
                        repeatableForCredit: doc["repeatableForCred"] as? Bool,
                        preReqCodes: doc["prereqs"] as? String
                    )
+                   
+                   difficultyStars = doc["difficultyStars"] as? Int ?? 0
+                   satisfactionStars = doc["satisfactionStars"] as? Int ?? 0
+                   totalReviews = doc["numReviews"] as? Int ?? 0
                }
        }
    }
 }
  extension CourseView {
      
+     var reviews: some View {
+         VStack(alignment: .leading) {
+             Rectangle()
+                 .frame(height: 2)
+             
+             VStack(alignment: .leading) {
+                 HStack {
+                     
+                     Text("Reviews")
+                         .font(.title)
+                         .bold()
+                     
+                     Spacer()
+                     
+                     Button(action: {
+                     }) {
+                         Text("Rate Course")
+                             .foregroundStyle(.teal)
+                     }
+                 }
+                 .padding(.bottom)
+                 
+                 
+                 HStack {
+                     Text("Difficulty")
+                     
+                     Spacer()
+                     
+                     Text("3.5")
+                         .fontWeight(.medium)
+                     
+                     ZStack(alignment: .leading) {
+                         
+                         Rectangle()
+                             .fill(Color.appYellow)
+                             .frame(width: CGFloat(0.2) * 80)
+                         
+                         Capsule()
+                             .stroke(Color.appBlue, lineWidth: 2)
+                     }
+                     .frame(width: 100, height: 16)
+                     .clipShape(Capsule())
+                 }
+                 .font(.title2)
+                 
+                 HStack {
+                     Text("Overall")
+                     
+                     Spacer()
+                     
+                     Text("2.4")
+                         .fontWeight(.medium)
+                     
+                     ZStack(alignment: .leading) {
+                         
+                         Rectangle()
+                             .fill(Color.appYellow)
+                             .frame(width: CGFloat(0.05) * 80)
+                         
+                         Capsule()
+                             .stroke(Color.appBlue, lineWidth: 2)
+                     }
+                     .frame(width: 100, height: 16)
+                     .clipShape(Capsule())
+                     
+                     
+                 }
+                 .font(.title2)
+             }
+         }
+         .foregroundStyle(Color.appBlue)
+     }
+     
      var courseDetails: some View {
          ZStack {
              VStack {
-                 VStack(spacing: 8) {
-                     Text(course!.title)
-                         .font(.largeTitle)
-                     
-                     HStack {
-                         Text(courseCode.uppercased())
+                 ScrollView {
+                     VStack(spacing: 8) {
+                         Text(course!.title)
+                             .font(.largeTitle)
                          
-                         Circle()
-                             .frame(width: 5)
-                         
-                         Text("\(course!.credits) credits")
-                     }
-                 }
+                         HStack {
+                             Text(courseCode.uppercased())
                              
-                 Text(course!.description)
-                     .font(.title3)
-                     .padding(.vertical, 48)
-                     .frame(maxWidth: .infinity, alignment: .leading)
-                 
-                 VStack(alignment: .leading, spacing: 8) {
-                     
-                     if let preReqs = course!.preReqCodes { Text("**Prerequisites:** \(preReqs)") }
-                     
-                     if let instructor = course!.instructor { Text("**Instructor:** \(instructor)") }
-                     
-                     if let genEdCode = course!.genEdCode { Text("**Gen Ed Code:** \(genEdCode.uppercased())") }
-                     
-                     if let qsOffered = course!.quartersOffered { Text("**Quarters Offered:** \(qsOffered)") }
-                     
-                     if let _ = course!.repeatableForCredit { Text("**Repeatable for Credit:** Yes") }
-                     
-                     Spacer()
-                 }
-                 .frame(maxWidth: .infinity)
-                 
-                 VStack(alignment: .leading) {
-                     Rectangle()
-                         .frame(height: 2)
-                        
-                     HStack {
-                         Text("Reviews")
-                         
-                         VStack(alignment: .leading) {
-                             Text("4.3 / 5")
+                             Circle()
+                                 .frame(width: 5)
                              
-                             ForEach(1..<6) { num in
-                                 Image("star")
-                                     .foregroundStyle(.yellow)
-                             }
+                             Text("\(course!.credits) credits")
                          }
                      }
+                                 
+                     Text(course!.description)
+                         .font(.body)
+                         .padding(.vertical, 48)
+                         .frame(maxWidth: .infinity, alignment: .leading)
                      
-                     Button(action: {
-                         showRateCoursePopup = true
-                     }) {
-                         Text("Rate Course")
-                     }
-                 }
-                 
-                 Spacer()
-                 
-                 
-                 
-                 VStack {
-                     Text("Status")
-                         .font(.title)
-                         .bold()
-
-                     Picker("", selection: $status) {
-
-                         Text("Available").tag("available")
-                             .font(.largeTitle)
-                                             
-                         Text("Taking").tag("taking")
+                     VStack(alignment: .leading, spacing: 8) {
                          
-                         Text("Taken").tag("taken")
+                         if let preReqs = course!.preReqCodes { Text("**Prerequisites:** \(preReqs)") }
                          
+                         if let instructor = course!.instructor { Text("**Instructor:** \(instructor)") }
+                         
+                         if let genEdCode = course!.genEdCode { Text("**Gen Ed Code:** \(genEdCode.uppercased())") }
+                         
+                         if let qsOffered = course!.quartersOffered { Text("**Quarters Offered:** \(qsOffered)") }
+                         
+                         if let _ = course!.repeatableForCredit { Text("**Repeatable for Credit:** Yes") }
+                         
+                         Spacer()
                      }
-                     .pickerStyle(SegmentedPickerStyle())
-                     .padding(.horizontal)
-                     .disabled(course == nil)
+                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                     
+                     
+                     reviews
+                     
+                     Spacer()
+                     
+                     Rectangle()
+                         .frame(height: 2)
+                         .padding(.vertical)
+                     
+                     VStack {
+                         Text("My Status")
+                             .font(.title)
+                             .bold()
+
+                         Picker("", selection: $status) {
+
+                             Text("Available").tag("available")
+                                 .font(.largeTitle)
+                                                 
+                             Text("Taking").tag("taking")
+                             
+                             Text("Taken").tag("taken")
+                             
+                         }
+                         .pickerStyle(SegmentedPickerStyle())
+                         .padding(.horizontal)
+                         .disabled(course == nil)
+                     }
                  }
              }
              .padding()
@@ -326,12 +386,9 @@ extension CourseView {
          }
      }
  }
-
-
-//#Preview {
-//    CourseView(courseCode: "writ 1", areaTitle: "Writing")
-//        .modelContainer(previewContainer)
+//
+//struct reviewCoursePopup: View {
+//    var body: some View {
+//
+//    }
 //}
-
-
-

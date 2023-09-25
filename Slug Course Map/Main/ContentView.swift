@@ -23,38 +23,17 @@ struct ContentView: View {
 
 extension ContentView {
     var body: some View {
-//        VStack(spacing: 0) {
-//            if currentTab == .profile {
-//                ProfileView()
-//            } else if currentTab == .map {
-//                MapView()
-//            } else {
-//                CourseBookView(allAreasAndCodes: $courseBookAreaData)
-//            }
-//            
-//            tabs
-//        }
-        
-        Text("click")
-            .onTapGesture {
-                let db = Firestore.firestore()
-                let collection = db.collection("areasOfStudy")
-                
-                collection.getDocuments { snapshot, error in
-                    if let error = error { print(error.localizedDescription); return }
-                    if let docs = snapshot {
-                        for doc in docs.documents {
-                            let docRef = collection.document(doc.documentID)
-                            
-                            docRef.updateData([
-                                "numReviews" :  0,
-                                "totalDifficultyStars" : 0,
-                                "totalSatisfactionStars" : 0
-                            ])
-                        }
-                    }
-                }
+        VStack(spacing: 0) {
+            if currentTab == .profile {
+                ProfileView()
+            } else if currentTab == .map {
+                MapView()
+            } else {
+                CourseBookView(allAreasAndCodes: $courseBookAreaData)
             }
+            
+            tabs
+        }
     }
 }
 
