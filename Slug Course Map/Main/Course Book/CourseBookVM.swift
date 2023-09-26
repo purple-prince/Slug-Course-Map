@@ -35,34 +35,41 @@ class CourseBookVM: ObservableObject {
 
 struct CourseReviewPopup: View {
     
-    @State var difficultyStars: Int = 0
-    @State var satisfactionStars: Int = 0
+    let courseCode: String
+    let areaTitle: String
     
+    @State var difficultyStars: Int = 1
+    @State var satisfactionStars: Int = 1
+    @Binding var showPopup: Bool
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 16)
                 .foregroundStyle(.white)
-                .blur(radius: 12)
+                .shadow(color: .black, radius: 12)
+                
             
             VStack {
                 Text("Write a review")
                     .font(.title)
                 
+                Spacer()
+                Spacer()
+                
                 VStack {
+                    Spacer()
                     HStack {
                         Text("Difficulty")
                         
-                        HStack {
+                        Spacer()
+                        
+                        HStack(spacing: 1) {
                             ForEach(1..<6) { num in
                                 Image(systemName: difficultyStars >= num ? "star.fill" : "star")
                                     .foregroundStyle(.yellow)
+                                    .font(.title)
                                     .onTapGesture {
-                                        if difficultyStars != num {
-                                            difficultyStars = num
-                                        } else {
-                                            difficultyStars -= 1
-                                        }
+                                        difficultyStars = num
                                         
                                         HapticManager.manager.playHaptic(type: .soft)
                                     }
@@ -71,18 +78,18 @@ struct CourseReviewPopup: View {
                     }
                     
                     HStack {
+                        
                         Text("Satisfaction")
                         
-                        HStack {
+                        Spacer()
+                        
+                        HStack(spacing: 1) {
                             ForEach(1..<6) { num in
                                 Image(systemName: satisfactionStars >= num ? "star.fill" : "star")
+                                    .font(.title)
                                     .foregroundStyle(.yellow)
                                     .onTapGesture {
-                                        if satisfactionStars != num {
-                                            satisfactionStars = num
-                                        } else {
-                                            satisfactionStars -= 1
-                                        }
+                                        satisfactionStars = num
                                         
                                         HapticManager.manager.playHaptic(type: .soft)
                                     }
@@ -90,42 +97,75 @@ struct CourseReviewPopup: View {
                         }
                     }
                     
-                    Button(action: {
-                        
-                        if difficultyStars > 0 && satisfactionStars > 0 {
-                            let review = Review(difficultyStars: Double(difficultyStars), satisfactionStars: Double(satisfactionStars))
-                            submitCourseReview(areaTitle: "", courseName: "", review: review)
-                        }
-                    }) {
-                        Text("Submit")
-                            .font(.title2)
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .foregroundStyle(Color.appBlue)
-                            )
-                    }
+                    Spacer()
+                    
+                    submitButton
                 }
+                
+                Spacer()
             }
             .foregroundStyle(Color.appBlue)
             .padding()
+            
+            
+            VStack {
+                
+                HStack {
+                    
+                    Spacer()
+                    
+                    Image(systemName: "xmark")
+                        .font(.title)
+                        .onTapGesture {
+                            showPopup = false
+                        }
+                }
+                
+                Spacer()
+            }
+        }
+        .frame(height: 300)
+        .padding(.horizontal)
+        .padding(.horizontal)
+    }
+    
+    var submitButton: some View {
+        Button(action: {
+            
+            if difficultyStars > 0 && satisfactionStars > 0 {
+                let review = Review(difficultyStars: Double(difficultyStars), satisfactionStars: Double(satisfactionStars))
+                submitCourseReview(areaTitle: areaTitle, courseCode: courseCode, review: review)
+            }
+        }) {
+            Text("Submit")
+                .foregroundStyle(.white)
+                .font(.title2)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundStyle(Color.appBlue)
+                )
         }
     }
     
-    func submitCourseReview(areaTitle: String, courseName: String, review: Review) {
+    func submitCourseReview(areaTitle: String, courseCode: String, review: Review) {
         let db = Firestore.firestore()
         db.collection("areasOfStudy")
             .document(areaTitle)
             .collection("courses")
-            .document(courseName)
+            .document(courseCode)
             .updateData([
                 "numReviews" : FieldValue.increment(1.0),
-                "totalDifficultyStars" : FieldValue.increment(review.difficultyStars),
-                "totalSatisfactionStars" : FieldValue.increment(review.satisfactionStars),
+                "difficultyStars" : FieldValue.increment(review.difficultyStars),
+                "satisfactionStars" : FieldValue.increment(review.satisfactionStars),
                 //"allReviews" : append to firestore array...
             ])
     }
 }
+
+//#Preview {
+//    CourseReviewPopup(showPopup: .constant(true))
+//}
 
 
 class Review {
