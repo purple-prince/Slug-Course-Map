@@ -58,7 +58,7 @@ extension DegreeDetail {
                     Image(systemName: "chevron.right")
                         .rotationEffect(Angle(degrees: dropdownStates[buttonStateKey]! ? -270 : 0))
                 }
-                .font(.title2)
+                .font(.tTitle2)
             }
             
             if dropdownStates[buttonStateKey]! {
@@ -97,7 +97,7 @@ extension DegreeDetail {
                         .onTapGesture {
                             tabSelected = .requirements
                         }
-                        .font(Font.system(size: 16))
+                        .font(.tCallout)
                     Spacer()
                 }
                 
@@ -112,7 +112,7 @@ extension DegreeDetail {
                     Spacer()
                 }
             }
-            .font(.title3)
+            .font(.tTitle3)
             
             
             HStack(spacing: 0) {
@@ -130,7 +130,7 @@ extension DegreeDetail {
         VStack {
             
             Text(degreeTitle ?? "")
-                .font(.largeTitle)
+                .font(.tLargeTitle)
                 .padding(.leading, (degreeTitle ?? "").count > 15 ? 32 : 0)
             
             tabPicker
@@ -165,7 +165,7 @@ extension DegreeDetail {
                                                         .bold()
                     
                                                     Text(ploDict[key]!)
-                                                        .font(.callout)
+                                                        .font(.tCallout)
                                                 }
                                                 .padding(.vertical, 4)
                                             }
@@ -174,7 +174,7 @@ extension DegreeDetail {
                                                 VStack(alignment: .leading) {
                     
                                                     Text(plo)
-                                                        .font(.callout)
+                                                        .font(.tCallout)
                                                 }
                                                 .padding(.vertical, 4)
                                             }
@@ -201,7 +201,7 @@ extension DegreeDetail {
                             if let url = degree.websiteUrl {
                                 Link(destination: URL(string: url)!, label: {
                                     Text("Program Website")
-                                        .font(.title2)
+                                        .font(.tTitle2)
                                         .underline()
                                 })
                                 .padding(.vertical)

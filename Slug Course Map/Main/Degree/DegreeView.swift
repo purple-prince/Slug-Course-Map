@@ -67,12 +67,12 @@ extension DegreeView {
         VStack(spacing: 8) {
             HStack {
                 Text(degree)
-                    .font(.title)
+                    .font(.tTitle)
                 
                 Spacer()
                 
                 Image(systemName: "chevron.right")
-                    .font(.title2)
+                    .font(.tTitle2)
             }
             .padding(.horizontal)
             
@@ -89,7 +89,7 @@ extension DegreeView {
         VStack {
             
             Text("Degrees")
-                .font(.largeTitle)
+                .font(.tLargeTitle)
                 
                 .padding(.top, 8)
             
@@ -119,7 +119,7 @@ extension DegreeView {
                     
                     Spacer()
                 }
-                .font(.title2)
+                .font(.tTitle2)
                 
                 HStack(spacing: 0) {
                     ForEach(DegreeType.allCases, id: \.self ) { type in
@@ -134,7 +134,7 @@ extension DegreeView {
             ScrollView {
                 if allBa.isEmpty {
                     Text("Loading 😐")
-                        .font(.title)
+                        .font(.tTitle)
                         .padding(.top)
                 } else {
                     ForEach(selectedDegrees, id: \.self) { degree in

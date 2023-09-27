@@ -7,53 +7,58 @@ import CoreLocation
 
 struct MapView: View {//36.99635341383817, -122.05936389431821
     
+    @ObservedObject private var locationManager = LocationManager()
     
     @State var region: MKCoordinateRegion = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 36.996, longitude: -122.06) ,
-        span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.01)
+        span: MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.02) // span = bounds of where user can pan to on the map
     )
     
     @State var pos: MapCameraPosition = .rect(MKMapRect(
-        origin: MKMapPoint(CLLocationCoordinate2D(latitude: 37, longitude: -122.074)),
+        origin: MKMapPoint(CLLocationCoordinate2D(latitude: 38, longitude: -122.074)), // changing lat to 38 gives more north-centered view of campus
         size: MKMapSize(width: 20_000, height: 20_000)
     ))
     
         
     var body: some View {
         ZStack(alignment: .bottomLeading) {
+                        
             
             Map(
                 position: $pos,
-                bounds: MapCameraBounds(centerCoordinateBounds: region, maximumDistance: 5_000)
+                bounds: MapCameraBounds(centerCoordinateBounds: region, maximumDistance: 7_000) // maximum distance = max zoom level
             )
-                .frame(maxHeight: 600)
                 .mapControls {
                     MapUserLocationButton()
                 }
-            
-//            ZStack {
-//                Circle()
-//                    .aspectRatio(1, contentMode: .fit)
-//                    .frame(width: 64)
-//                    .foregroundStyle(.regularMaterial)
-//                    .shadow(color: .gray, radius: 4)
-//                    
-//                
-//                Image(systemName: "location.fill")
-//                    .font(.title)
-//                    .foregroundStyle(.blue)
-//                    .padding()
-//                
-//            }
-//            .onTapGesture {
-//                pos = .userLocation(followsHeading: true, fallback: .automatic)
-//            }
-//            .padding()
         }
         .onAppear {
 //            if !(locationManager.locationManager.authorizationStatus == .authorizedWhenInUse) {
 //                
 //            }
+        }
+    }
+}
+
+class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
+    @Published var location: CLLocation?
+
+    let locationManager = CLLocationManager()
+
+    override init() {
+        super.init()
+
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.location = locations.first
+    }
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
         }
     }
 }

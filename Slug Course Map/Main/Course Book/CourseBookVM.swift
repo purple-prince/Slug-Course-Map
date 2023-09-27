@@ -51,7 +51,7 @@ struct CourseReviewPopup: View {
             
             VStack {
                 Text("Write a review")
-                    .font(.title)
+                    .font(.tTitle)
                 
                 Spacer()
                 Spacer()
@@ -67,7 +67,7 @@ struct CourseReviewPopup: View {
                             ForEach(1..<6) { num in
                                 Image(systemName: difficultyStars >= num ? "star.fill" : "star")
                                     .foregroundStyle(.yellow)
-                                    .font(.title)
+                                    .font(.tTitle)
                                     .onTapGesture {
                                         difficultyStars = num
                                         
@@ -86,7 +86,7 @@ struct CourseReviewPopup: View {
                         HStack(spacing: 1) {
                             ForEach(1..<6) { num in
                                 Image(systemName: satisfactionStars >= num ? "star.fill" : "star")
-                                    .font(.title)
+                                    .font(.tTitle)
                                     .foregroundStyle(.yellow)
                                     .onTapGesture {
                                         satisfactionStars = num
@@ -115,7 +115,7 @@ struct CourseReviewPopup: View {
                     Spacer()
                     
                     Image(systemName: "xmark")
-                        .font(.title)
+                        .font(.tTitle)
                         .onTapGesture {
                             showPopup = false
                         }
@@ -139,7 +139,7 @@ struct CourseReviewPopup: View {
         }) {
             Text("Submit")
                 .foregroundStyle(.white)
-                .font(.title2)
+                .font(.tTitle2)
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 12)

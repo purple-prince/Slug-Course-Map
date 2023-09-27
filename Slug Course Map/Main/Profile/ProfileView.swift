@@ -28,15 +28,15 @@ struct ProfileView: View {
             } else {
                 VStack {
                     Text("Coursework")
+                        //.font(.custom("Titillium-Bold", size: 48))
                         .font(Font.system(size: 48))
-                        .bold()
                     
                     VStack(alignment: .leading) {
                         Text("**Completed Credits:** \(taken_credits) / 180")
-                            .font(.title2)
+                            .font(.title2)//.font(.tTitle2)
                         
                         Text("**Current Term Credits:** \(taking_credits)")
-                            .font(.title2)
+                            .font(.title2)//.font(.tTitle2)
                             
                         HStack { Spacer() }
                     }
@@ -58,12 +58,12 @@ extension ProfileView {
         VStack {
             HStack {
                 Text("Degree Progress")
-                    .font(.title3)
+                    .font(.tTitle3)
 
                 Spacer()
                 
                 Image(systemName: "chevron.right")
-                .font(.system(size: 16, weight: .semibold))
+                .font(.custom("Titillium-SemiBold", size: 16))
             }
             .padding(.horizontal)
             .foregroundColor(.appPrimary)

@@ -124,7 +124,7 @@ extension CourseView {
                 HStack {
                     
                     Text("Reviews")
-                        .font(.title)
+                        .font(.tTitle)
                         .bold()
                     
                     Spacer()
@@ -147,7 +147,7 @@ extension CourseView {
                     
                     
                     Text("\((difficultyStars / [totalReviews, 1].max()!).description) / 5")
-                        .fontWeight(.medium)
+                        .font(.custom("Titillium-SemiBold", size: 17))
                     
                     ZStack(alignment: .leading) {
                         
@@ -161,7 +161,7 @@ extension CourseView {
                     .frame(width: 100, height: 16)
                     .clipShape(Capsule())
                 }
-                .font(.title2)
+                .font(.tTitle2)
                 
                 HStack {
                     Text("Overall")
@@ -173,6 +173,7 @@ extension CourseView {
                     
                     Text("\((satisfactionStars / [totalReviews, 1].max()!).description) / 5")
                         .fontWeight(.medium)
+                        .font(.custom("Titillium-SemiBold", size: 17))
                     
                     ZStack(alignment: .leading) {
                         
@@ -188,7 +189,7 @@ extension CourseView {
                     
                     
                 }
-                .font(.title2)
+                .font(.tTitle2)
             }
         }
         .foregroundStyle(Color.appBlue)
@@ -200,7 +201,7 @@ extension CourseView {
                 ScrollView {
                     VStack(spacing: 8) {
                         Text(course!.title)
-                            .font(.largeTitle)
+                            .font(.tLargeTitle)
                         
                         HStack {
                             Text(courseCode.uppercased())
@@ -213,7 +214,7 @@ extension CourseView {
                     }
                                 
                     Text(course!.description)
-                        .font(.body)
+                        .font(.tBody)
                         .padding(.vertical, 48)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
@@ -258,13 +259,13 @@ extension CourseView {
     var myProgressSection: some View {
         VStack {
             Text("My Progress")
-                .font(.title)
+                .font(.tTitle)
                 .bold()
 
             Picker("", selection: $status) {
 
                 Text("Available").tag("available")
-                    .font(.largeTitle)
+                    .font(.tLargeTitle)
                                     
                 Text("Taking").tag("taking")
                 
