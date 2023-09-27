@@ -29,10 +29,20 @@
 		D8C300332A691D9F00181AD1 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C300322A691D9F00181AD1 /* CourseModel.swift */; };
 		D8C63F122A64659400BFEE89 /* AreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C63F112A64659400BFEE89 /* AreaView.swift */; };
 		D8C63F142A647F3F00BFEE89 /* CourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C63F132A647F3F00BFEE89 /* CourseView.swift */; };
+		D8D30FF62AC380AD0044CD97 /* Titillium-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8D30FEA2AC380AD0044CD97 /* Titillium-Bold.ttf */; };
+		D8D30FF72AC380AD0044CD97 /* Titillium-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8D30FEB2AC380AD0044CD97 /* Titillium-Regular.ttf */; };
+		D8D30FF82AC380AD0044CD97 /* Titillium-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8D30FEC2AC380AD0044CD97 /* Titillium-SemiBold.ttf */; };
+		D8D30FF92AC380AD0044CD97 /* Titillium-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8D30FED2AC380AD0044CD97 /* Titillium-ExtraLight.ttf */; };
+		D8D310002AC380AD0044CD97 /* Titillium-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8D30FF42AC380AD0044CD97 /* Titillium-Light.ttf */; };
 		D8D641A32A6733A5004EEC82 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D641A22A6733A5004EEC82 /* Extensions.swift */; };
 		D8D641A52A6733E6004EEC82 /* CourseBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D641A42A6733E6004EEC82 /* CourseBookView.swift */; };
 		D8E22EAA2AAAC089007917A2 /* DegreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E22EA92AAAC089007917A2 /* DegreeView.swift */; };
 		D8E815DA2AB567AE008B0130 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E815D92AB567AE008B0130 /* BackButton.swift */; };
+		D8FFD9782AC299EA009B6A97 /* Comfortaa-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8FFD9732AC299EA009B6A97 /* Comfortaa-Light.ttf */; };
+		D8FFD9792AC299EA009B6A97 /* Comfortaa-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8FFD9742AC299EA009B6A97 /* Comfortaa-SemiBold.ttf */; };
+		D8FFD97A2AC299EA009B6A97 /* Comfortaa-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8FFD9752AC299EA009B6A97 /* Comfortaa-Medium.ttf */; };
+		D8FFD97B2AC299EA009B6A97 /* Comfortaa-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8FFD9762AC299EA009B6A97 /* Comfortaa-Regular.ttf */; };
+		D8FFD97C2AC299EA009B6A97 /* Comfortaa-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8FFD9772AC299EA009B6A97 /* Comfortaa-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,10 +63,21 @@
 		D8C300322A691D9F00181AD1 /* CourseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
 		D8C63F112A64659400BFEE89 /* AreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaView.swift; sourceTree = "<group>"; };
 		D8C63F132A647F3F00BFEE89 /* CourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseView.swift; sourceTree = "<group>"; };
+		D8D30FEA2AC380AD0044CD97 /* Titillium-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Titillium-Bold.ttf"; sourceTree = "<group>"; };
+		D8D30FEB2AC380AD0044CD97 /* Titillium-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Titillium-Regular.ttf"; sourceTree = "<group>"; };
+		D8D30FEC2AC380AD0044CD97 /* Titillium-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Titillium-SemiBold.ttf"; sourceTree = "<group>"; };
+		D8D30FED2AC380AD0044CD97 /* Titillium-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Titillium-ExtraLight.ttf"; sourceTree = "<group>"; };
+		D8D30FF42AC380AD0044CD97 /* Titillium-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Titillium-Light.ttf"; sourceTree = "<group>"; };
 		D8D641A22A6733A5004EEC82 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D8D641A42A6733E6004EEC82 /* CourseBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseBookView.swift; sourceTree = "<group>"; };
 		D8E22EA92AAAC089007917A2 /* DegreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DegreeView.swift; sourceTree = "<group>"; };
 		D8E815D92AB567AE008B0130 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		D8FFD9732AC299EA009B6A97 /* Comfortaa-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Light.ttf"; sourceTree = "<group>"; };
+		D8FFD9742AC299EA009B6A97 /* Comfortaa-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-SemiBold.ttf"; sourceTree = "<group>"; };
+		D8FFD9752AC299EA009B6A97 /* Comfortaa-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Medium.ttf"; sourceTree = "<group>"; };
+		D8FFD9762AC299EA009B6A97 /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Regular.ttf"; sourceTree = "<group>"; };
+		D8FFD9772AC299EA009B6A97 /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
+		D8FFD97D2AC29A1F009B6A97 /* Slug-Course-Map-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Slug-Course-Map-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +125,9 @@
 		D8676F552A5BD3E5009A2C37 /* Slug Course Map */ = {
 			isa = PBXGroup;
 			children = (
+				D8FFD97D2AC29A1F009B6A97 /* Slug-Course-Map-Info.plist */,
+				D8D30FE82AC380AD0044CD97 /* Titillium */,
+				D8FFD9722AC299EA009B6A97 /* comfortaa */,
 				D8C63F0F2A64653F00BFEE89 /* Main */,
 				D8C63F102A64654E00BFEE89 /* Files */,
 				D83E146F2A63986D002D6045 /* GoogleService-Info.plist */,
@@ -153,6 +177,19 @@
 			path = Files;
 			sourceTree = "<group>";
 		};
+		D8D30FE82AC380AD0044CD97 /* Titillium */ = {
+			isa = PBXGroup;
+			children = (
+				D8D30FEA2AC380AD0044CD97 /* Titillium-Bold.ttf */,
+				D8D30FEB2AC380AD0044CD97 /* Titillium-Regular.ttf */,
+				D8D30FEC2AC380AD0044CD97 /* Titillium-SemiBold.ttf */,
+				D8D30FED2AC380AD0044CD97 /* Titillium-ExtraLight.ttf */,
+				D8D30FF42AC380AD0044CD97 /* Titillium-Light.ttf */,
+			);
+			name = Titillium;
+			path = ../../../../../Downloads/Titillium;
+			sourceTree = "<group>";
+		};
 		D8E22EA72AAABCDA007917A2 /* Course Book */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +218,19 @@
 				D8E815D92AB567AE008B0130 /* BackButton.swift */,
 			);
 			path = HelperViews;
+			sourceTree = "<group>";
+		};
+		D8FFD9722AC299EA009B6A97 /* comfortaa */ = {
+			isa = PBXGroup;
+			children = (
+				D8FFD9732AC299EA009B6A97 /* Comfortaa-Light.ttf */,
+				D8FFD9762AC299EA009B6A97 /* Comfortaa-Regular.ttf */,
+				D8FFD9752AC299EA009B6A97 /* Comfortaa-Medium.ttf */,
+				D8FFD9742AC299EA009B6A97 /* Comfortaa-SemiBold.ttf */,
+				D8FFD9772AC299EA009B6A97 /* Comfortaa-Bold.ttf */,
+			);
+			name = comfortaa;
+			path = ../../../../../Downloads/Comfortaa/comfortaa;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,8 +303,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8D30FF62AC380AD0044CD97 /* Titillium-Bold.ttf in Resources */,
+				D8D30FF72AC380AD0044CD97 /* Titillium-Regular.ttf in Resources */,
+				D8FFD97C2AC299EA009B6A97 /* Comfortaa-Bold.ttf in Resources */,
+				D8FFD9792AC299EA009B6A97 /* Comfortaa-SemiBold.ttf in Resources */,
+				D8D30FF82AC380AD0044CD97 /* Titillium-SemiBold.ttf in Resources */,
+				D8FFD9782AC299EA009B6A97 /* Comfortaa-Light.ttf in Resources */,
 				D8676F5E2A5BD3E6009A2C37 /* Preview Assets.xcassets in Resources */,
+				D8FFD97B2AC299EA009B6A97 /* Comfortaa-Regular.ttf in Resources */,
 				D8676F5B2A5BD3E6009A2C37 /* Assets.xcassets in Resources */,
+				D8FFD97A2AC299EA009B6A97 /* Comfortaa-Medium.ttf in Resources */,
+				D8D30FF92AC380AD0044CD97 /* Titillium-ExtraLight.ttf in Resources */,
+				D8D310002AC380AD0044CD97 /* Titillium-Light.ttf in Resources */,
 				D83E14702A63986D002D6045 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +474,7 @@
 				DEVELOPMENT_TEAM = 798S44L2X9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Slug-Course-Map-Info.plist";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location needed to use map :)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -442,6 +503,7 @@
 				DEVELOPMENT_TEAM = 798S44L2X9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Slug-Course-Map-Info.plist";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location needed to use map :)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

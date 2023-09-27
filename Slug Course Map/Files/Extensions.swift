@@ -47,6 +47,21 @@ extension Dictionary: RawRepresentable where Key == String, Value == String {
 
 }
 
+extension Font {
+    
+    // custom font replacements mathing built-in sizes, with dynamic type scaling support
+    
+    static var tTitle: Font { Font.custom("Titillium-Regular", size: 28, relativeTo: .title) }
+    static var tTitle2: Font { Font.custom("Titillium-Regular", size: 22, relativeTo: .title2) }
+    static var tTitle3: Font { Font.custom("Titillium-Regular", size: 20, relativeTo: .title3) }
+    static var tBody: Font { Font.custom("Titillium-Regular", size: 17, relativeTo: .body) }
+    static var tLargeTitle: Font { Font.custom("Titillium-Regular", size: 34, relativeTo: .largeTitle) }
+    static var tCallout: Font { Font.custom("Titillium-Regular", size: 16, relativeTo: .callout) }
+    
+    static var tTitleBold: Font { Font.custom("Titillium-Bold", size: 28, relativeTo: .title) }
+    static var tLargeTitleBold: Font { Font.custom("Titillium-Bold", size: 34, relativeTo: .largeTitle) }
+}
+
 extension Array: RawRepresentable where Element: Codable {
     public init?(rawValue: String) {
         guard let data = rawValue.data(using: .utf8),

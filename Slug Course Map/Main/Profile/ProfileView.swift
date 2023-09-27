@@ -8,6 +8,8 @@
 import SwiftUI
 import SwiftData
 
+
+
 struct ProfileView: View {
     
     @AppStorage("taken_credits") var taken_credits: Int = 0

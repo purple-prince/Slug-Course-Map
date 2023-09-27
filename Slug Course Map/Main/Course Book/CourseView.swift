@@ -141,6 +141,7 @@ extension CourseView {
                 
                 HStack {
                     Text("Difficulty")
+                        
                     
                     Spacer()
                     

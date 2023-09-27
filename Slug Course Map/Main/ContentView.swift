@@ -34,6 +34,8 @@ extension ContentView {
             
             tabs
         }
+        //.font(.custom("Comfortaa-Bold", size: 20))
+        //.font(.custom("", size: <#T##CGFloat#>, relativeTo: <#T##Font.TextStyle#>))
     }
 }
 
