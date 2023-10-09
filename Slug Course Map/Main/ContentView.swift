@@ -11,11 +11,9 @@ import SwiftData
 // this is a text change
 struct ContentView: View {
     
-    enum Tab { case profile, courseBook, map }
+    enum Tab { case profile, courseBook, map, options }
     
     @State var currentTab: Tab = .profile
-    //@SwiftData.Query var th: [CourseDataModel]
-    //@Environment(\.modelContext) var context
     
     @State var courseBookAreaData: [String : String] = [ : ]
     
@@ -28,8 +26,10 @@ extension ContentView {
                 ProfileView()
             } else if currentTab == .map {
                 MapView()
-            } else {
+            } else if currentTab == .courseBook {
                 CourseBookView(allAreasAndCodes: $courseBookAreaData)
+            } else {
+                OptionsView()
             }
             
             tabs
@@ -66,10 +66,10 @@ extension ContentView {
             
             Spacer()
         }
-        .foregroundColor(.appYellow)
+        .foregroundColor(.supaYellow)
         .padding(.top, 8)
         .padding(.horizontal)
-        .background(Color.appPrimary)
+        .background(Color.supaDarkSecondary)
     }
 }
 

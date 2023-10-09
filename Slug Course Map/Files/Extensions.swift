@@ -17,6 +17,33 @@ extension Color {
         //if UITraitCollection.current.userInterfaceStyle == .dark { return .appYellow }
         return .appBlue
     }
+    
+    
+    static let supaYellow = Color(red: 245/255, green: 158/255, blue: 12/255)
+    static let supaYellowSecondary = Color(red: 51/255, green: 40/255, blue: 31/255) //
+    
+    static let supaDark = Color(red: 24/255, green: 24/255, blue: 24/255)
+    static let supaDark28 = Color(red: 28/255, green: 28/255, blue: 28/255)
+    static let supaDarkSecondary = Color(red: 31/255, green: 31/255, blue: 31/255) //
+    
+    static let supaBlue = Color(red: 60/255, green: 129/255, blue: 246/255)
+    static let supaBlueSecondary = Color(red: 32/255, green: 38/255, blue: 52/255) //
+    
+    static let supaGreen = Color(red: 36/255, green: 180/255, blue: 126/255)
+    static let supaGreenSecondary = Color(red: 33/255, green: 46/255, blue: 41/255)
+    
+    static let supaRed = Color(red: 239/255, green: 68/255, blue: 68/255)
+    static let supaRedSecondary = Color(red: 51/255, green: 33/255, blue: 32/255)
+    
+//    static let supaWhite = Color(red: 249/255, green: 247/255, blue: 240/255)
+//    static let supaWhiteSecondary = Color(red: 239/255, green: 68/255, blue: 68/255)
+//    
+//    static let supaWhiteEggshell = Color(red: 240/255, green: 234/255, blue: 214/255)
+//    static let supaWhitePearl = Color(red: 234/255, green: 224/255, blue: 200/255)
+    
+    static let supaWhite = Color(red: 212/255, green: 212/255, blue: 212/255)
+    
+    
 }
 
 extension String {
@@ -53,6 +80,7 @@ extension Font {
     
     static var tTitle: Font { Font.custom("Titillium-Regular", size: 28, relativeTo: .title) }
     static var tTitle2: Font { Font.custom("Titillium-Regular", size: 22, relativeTo: .title2) }
+    static var tTitle2Bold: Font { Font.custom("Titillium-Bold", size: 22, relativeTo: .title2) }
     static var tTitle3: Font { Font.custom("Titillium-Regular", size: 20, relativeTo: .title3) }
     static var tBody: Font { Font.custom("Titillium-Regular", size: 17, relativeTo: .body) }
     static var tLargeTitle: Font { Font.custom("Titillium-Regular", size: 34, relativeTo: .largeTitle) }

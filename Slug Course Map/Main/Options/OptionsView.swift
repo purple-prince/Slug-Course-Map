@@ -9,7 +9,17 @@ import SwiftUI
 
 struct OptionsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            VStack {
+                Text("Options")
+                
+                VStack {
+                    Text("Settings")
+                    Text("About")
+                    Text("Contact")
+                }
+            }
+        }
     }
 }
 

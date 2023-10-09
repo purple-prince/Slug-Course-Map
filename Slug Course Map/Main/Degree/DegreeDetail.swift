@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseFirestore
+//Color(red: 0.2, green: 0.2, blue: 0.2)
 
 struct DegreeDetail: View {
     
@@ -29,6 +30,8 @@ extension DegreeDetail {
     var body: some View {
         ZStack {
             
+            Color.supaDark.ignoresSafeArea()
+            
             main
             
             BackButton {
@@ -36,7 +39,6 @@ extension DegreeDetail {
             }
             .padding()
         }
-        .foregroundStyle(Color.appPrimary)
         .onAppear {
             getDegreeInfo()
         }
@@ -46,31 +48,40 @@ extension DegreeDetail {
 extension DegreeDetail {
         
     func dropdownItem<Content: View>(buttonStateKey: String, title: String, @ViewBuilder body: () -> Content) -> some View {
-        VStack {
-            Button(action: {
-                withAnimation(.spring(duration: 0.6, bounce: 0.2, blendDuration: 0.4)) { dropdownStates[buttonStateKey]!.toggle() }
-            }) {
-                HStack {
-                    Text(title)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "chevron.right")
-                        .rotationEffect(Angle(degrees: dropdownStates[buttonStateKey]! ? -270 : 0))
-                }
-                .font(.tTitle2)
-            }
+        
+        ZStack {
             
-            if dropdownStates[buttonStateKey]! {
-                body()
+            RoundedRectangle(cornerRadius: 12)
+                .foregroundStyle(Color.supaDark28)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color(red: 0.2, green: 0.2, blue: 0.2), lineWidth: 2)
+                )
+            
+            VStack {
+                Button(action: {
+                    withAnimation(.spring(duration: 0.6, bounce: 0.2, blendDuration: 0.4)) {
+                        dropdownStates[buttonStateKey]!.toggle()
+                    }
+                }) {
+                    HStack {
+                        Text(title)
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .rotationEffect(Angle(degrees: dropdownStates[buttonStateKey]! ? -270 : 0))
+                    }
+                    .foregroundStyle(Color.supaWhite)
+                    .font(.tTitle2)
+                    .padding()
+                }
+                
+                if dropdownStates[buttonStateKey]! {
+                    body()
+                }
             }
         }
-        .frame(maxWidth: .infinity)
-        .padding()
-        .background(
-            Color.white.cornerRadius(12)
-                .shadow(color: .gray, radius: 4)
-        )
     }
     
     var tabPicker: some View {
@@ -81,7 +92,7 @@ extension DegreeDetail {
                 HStack {
                     Spacer()
                     Text("Info")
-                        .foregroundStyle(tabSelected == .info ? Color.appPrimary : Color.gray)
+                        .foregroundStyle(tabSelected == .info ? Color.supaGreen : Color.gray)
                         .bold(tabSelected == .info)
                         .onTapGesture {
                             tabSelected = .info
@@ -92,7 +103,7 @@ extension DegreeDetail {
                 HStack {
                     Spacer()
                     Text("Requirements")
-                        .foregroundStyle(tabSelected == .requirements ? Color.appPrimary : Color.gray)
+                        .foregroundStyle(tabSelected == .requirements ? Color.supaGreen : Color.gray)
                         .bold(tabSelected == .requirements)
                         .onTapGesture {
                             tabSelected = .requirements
@@ -104,7 +115,7 @@ extension DegreeDetail {
                 HStack {
                     Spacer()
                     Text("Progress")
-                        .foregroundStyle(tabSelected == .progress ? Color.appPrimary : Color.gray)
+                        .foregroundStyle(tabSelected == .progress ? Color.supaGreen : Color.gray)
                         .bold(tabSelected == .progress)
                         .onTapGesture {
                             tabSelected = .progress
@@ -119,7 +130,7 @@ extension DegreeDetail {
                 ForEach(DetailTab.allCases, id: \.self ) { type in
                     Rectangle()
                         .frame(height: 3)
-                        .foregroundStyle(tabSelected == type ? Color.appPrimary : Color.gray)
+                        .foregroundStyle(tabSelected == type ? Color.supaGreen : Color(red: 0.2, green: 0.2, blue: 0.2))
                 }
             }
         }
@@ -132,6 +143,7 @@ extension DegreeDetail {
             Text(degreeTitle ?? "")
                 .font(.tLargeTitle)
                 .padding(.leading, (degreeTitle ?? "").count > 15 ? 32 : 0)
+                .foregroundStyle(Color.supaWhite)
             
             tabPicker
             
@@ -145,9 +157,12 @@ extension DegreeDetail {
                                     VStack {
                                         Rectangle()
                                             .frame(height: 1)
+                                            .foregroundStyle(Color(red: 0.2, green: 0.2, blue: 0.2))
                 
                                         Text(description)
-                                            .padding(.top, 8)
+                                            .foregroundStyle(Color.supaWhite)
+                                            .padding(.horizontal)
+                                            .padding(.vertical)
                                     }
                                 }
                             }
@@ -157,43 +172,53 @@ extension DegreeDetail {
                                     VStack(alignment: .leading) {
                                         Rectangle()
                                             .frame(height: 1)
+                                            .foregroundStyle(Color(red: 0.2, green: 0.2, blue: 0.2))
                                         
                                         if let ploDict = degree.ploDict {
                                             ForEach(Array(ploDict.keys), id: \.self) { key in
                                                 VStack(alignment: .leading) {
                                                     Text(key)
-                                                        .bold()
+                                                        .font(.tTitle3)
+                                                        .padding(.bottom, 8)
                     
                                                     Text(ploDict[key]!)
-                                                        .font(.tCallout)
+                                                        .font(.tBody)
                                                 }
-                                                .padding(.vertical, 4)
+                                                .foregroundStyle(Color.supaWhite)
+                                                .padding()
                                             }
                                         } else if let ploArr = degree.ploArr {
                                             ForEach(ploArr, id: \.self) { plo in
                                                 VStack(alignment: .leading) {
                     
-                                                    Text(plo)
-                                                        .font(.tCallout)
+                                                    Text(" - " + plo)
+                                                        .font(.tBody)
                                                 }
-                                                .padding(.vertical, 4)
+                                                .foregroundStyle(Color.supaWhite)
+                                                .padding()
                                             }
                                         }
                                     }
                                 }
                             }
                             
-                            if let isIntensive = degree.isIntensive {
+                            if let isIntensive = degree.isIntensive {//
                                 dropdownItem(buttonStateKey: "gettingStarted", title: "Freshmen: Getting Started") {
                                     VStack(alignment: .leading) {
                                         Rectangle()
                                             .frame(height: 1)
+                                            .foregroundStyle(Color(red: 0.2, green: 0.2, blue: 0.2))
                                         
-                                        if isIntensive {
-                                            Text("This major **is** high sequential or course intensive. Students who intend to pursue this major must begin taking classes for the major in their first quarter at UCSC.")
-                                        } else {
-                                            Text("This major is **not** highly sequential or course intensive.")
+                                        ZStack {
+                                            if isIntensive {
+                                                Text("This major **is** high sequential or course intensive. Students who intend to pursue this major must begin taking classes for the major in their first quarter at UCSC.")
+                                            } else {
+                                                Text("This major is **not** highly sequential or course intensive.")
+                                            }
                                         }
+                                        .font(.tBody)
+                                        .foregroundStyle(Color.supaWhite)
+                                        .padding()
                                     }
                                 }
                             }
@@ -253,5 +278,5 @@ struct Degree {
 }
 
 #Preview {
-    DegreeDetail(degreeTitle: .constant("Literature"), degreeType: "ba")
+    DegreeDetail(degreeTitle: .constant("Biochemistry and Molecular Biology"), degreeType: "bs")
 }

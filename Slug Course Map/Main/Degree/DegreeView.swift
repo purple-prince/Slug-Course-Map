@@ -44,6 +44,8 @@ extension DegreeView {
             } else {
                 ZStack {
                     
+                    Color.supaDark.ignoresSafeArea()
+                    
                     main
                     
                     BackButton {
@@ -64,22 +66,22 @@ extension DegreeView {
     
     func degreeCard(degree: String) -> some View {
         
-        VStack(spacing: 8) {
+        VStack {
             HStack {
                 Text(degree)
-                    .font(.tTitle)
+                    .font(.tTitle3)
+                    .foregroundStyle(Color.supaWhite)
+                    .padding(.horizontal)
                 
                 Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .font(.tTitle2)
             }
-            .padding(.horizontal)
+            .padding(.vertical, 4)
             
-            Rectangle()
-                .frame(height: 1)
+            Capsule()
+                .frame(height: 2)
+                .foregroundStyle(Color(red: 0.2, green: 0.2, blue: 0.2))
         }
-        .padding(.top, 4)
+        .padding(.horizontal)
         .onTapGesture {
             degreeToShow = degree
         }
@@ -89,8 +91,8 @@ extension DegreeView {
         VStack {
             
             Text("Degrees")
+                .foregroundStyle(Color.supaWhite)
                 .font(.tLargeTitle)
-                
                 .padding(.top, 8)
             
             VStack(spacing: 8) {
@@ -99,21 +101,21 @@ extension DegreeView {
                     Spacer()
                     
                     Text("B.A.")
-                        .foregroundStyle(degreeTypeSelected == .ba ? Color.appPrimary : Color.gray)
+                        .foregroundStyle(degreeTypeSelected == .ba ? Color.supaGreen : Color.gray)
                         .bold(degreeTypeSelected == .ba)
                         .onTapGesture { degreeTypeSelected = .ba }
                     
                     Spacer()
                     
                     Text("B.S.")
-                        .foregroundStyle(degreeTypeSelected == .bs ? Color.appPrimary : Color.gray)
+                        .foregroundStyle(degreeTypeSelected == .bs ? Color.supaGreen : Color.gray)
                         .bold(degreeTypeSelected == .bs)
                         .onTapGesture { degreeTypeSelected = .bs }
                     
                     Spacer()
                     
                     Text("Minor")
-                        .foregroundStyle(degreeTypeSelected == .minor ? Color.appPrimary : Color.gray)
+                        .foregroundStyle(degreeTypeSelected == .minor ? Color.supaGreen : Color.gray)
                         .bold(degreeTypeSelected == .minor)
                         .onTapGesture { degreeTypeSelected = .minor }
                     
@@ -125,7 +127,7 @@ extension DegreeView {
                     ForEach(DegreeType.allCases, id: \.self ) { type in
                         Rectangle()
                             .frame(height: 3)
-                            .foregroundStyle(degreeTypeSelected == type ? Color.appPrimary : Color.gray)
+                            .foregroundStyle(degreeTypeSelected == type ? Color.supaGreen : Color(red: 0.2, green: 0.2, blue: 0.2))
                     }
                 }
             }
@@ -145,7 +147,7 @@ extension DegreeView {
             
             Spacer()
         }
-        .foregroundStyle(Color.appPrimary)
+        .foregroundStyle(Color.supaDarkSecondary)
     }
 }
 

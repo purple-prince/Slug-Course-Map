@@ -17,7 +17,7 @@ struct BackButton: View {
                 
                 Image(systemName: "chevron.left")
                     .font(.title)
-                    .foregroundColor(.appPrimary)
+                    .foregroundColor(.supaWhite)
                     .onTapGesture {
                         action()
                     }

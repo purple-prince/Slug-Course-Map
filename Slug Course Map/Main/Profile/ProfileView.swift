@@ -26,53 +26,84 @@ struct ProfileView: View {
             if showDegreeView {
                 DegreeView(showDegreeView: $showDegreeView)
             } else {
-                VStack {
-                    Text("Coursework")
-                        //.font(.custom("Titillium-Bold", size: 48))
-                        .font(Font.system(size: 48))
+                
+                ZStack(alignment: .top) {
                     
-                    VStack(alignment: .leading) {
-                        Text("**Completed Credits:** \(taken_credits) / 180")
-                            .font(.title2)//.font(.tTitle2)
+                    Color.supaDark.ignoresSafeArea()
+                    
+                    VStack {
+                        Text("Coursework")
+                            .font(.custom("Titillium-Bold", size: 48))
+                            .foregroundStyle(Color.supaWhite)
                         
-                        Text("**Current Term Credits:** \(taking_credits)")
-                            .font(.title2)//.font(.tTitle2)
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color(red: 0.2, green: 0.2, blue: 0.2), lineWidth: 1)
+                                )
                             
-                        HStack { Spacer() }
+                            VStack(alignment: .leading, spacing: 12) {
+                                
+                                HStack {
+                                    Text("Completed Credits:")
+                                    Spacer()
+                                    Text("\(taken_credits) / 180")
+                                        .foregroundStyle(Color.supaGreen)
+                                }
+                                
+                                HStack {
+                                    Text("Current Term Credits:")
+                                    Spacer()
+                                    Text("\(taking_credits)")
+                                        .foregroundStyle(Color.supaGreen)
+                                }
+                            }
+                            .font(.tTitle3)
+                            .foregroundStyle(Color.supaWhite)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, 48)
+                                                                
+                        degreeProgressButton
+                        
+                        Spacer()
                     }
-                    .padding(.top, 48)
-                                    
-                    degreeProgressButton
-                    
-                    Spacer()
+                    .padding()
                 }
-                .padding()
             }
         }
-        .foregroundColor(.appBlue)
+        .foregroundStyle(Color.supaDark28)
     }
 }
 
 extension ProfileView {
     var degreeProgressButton: some View {
-        VStack {
+        
+        ZStack {
+            RoundedRectangle(cornerRadius: 12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color(red: 0.2, green: 0.2, blue: 0.2), lineWidth: 1)
+                )
+                            
             HStack {
-                Text("Degree Progress")
+                Text("Degrees")
                     .font(.tTitle3)
-
+                
                 Spacer()
                 
                 Image(systemName: "chevron.right")
-                .font(.custom("Titillium-SemiBold", size: 16))
+                    .font(.custom("Titillium-SemiBold", size: 16))
+                
             }
             .padding(.horizontal)
-            .foregroundColor(.appPrimary)
+            .padding(.vertical)
+            .foregroundStyle(Color.supaWhite)
         }
-        .padding(.vertical)
-        .background(Color.white)
-        .cornerRadius(8)
-        .frame(maxWidth: .infinity)
-        .shadow(color: Color(red: 0.7, green: 0.7, blue: 0.7), radius: 10)
+        .fixedSize(horizontal: false, vertical: true)
         .onTapGesture {
             //showDegreeProgressView = true
             showDegreeView = true
