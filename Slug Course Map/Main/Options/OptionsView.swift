@@ -10,6 +10,9 @@ import SwiftUI
 struct OptionsView: View {
     var body: some View {
         ZStack {
+            
+            Color.supaDark.ignoresSafeArea()
+            
             VStack {
                 Text("Options")
                 
@@ -19,6 +22,7 @@ struct OptionsView: View {
                     Text("Contact")
                 }
             }
+            .foregroundColor(.supaWhite)
         }
     }
 }

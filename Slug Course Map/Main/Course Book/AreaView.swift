@@ -93,11 +93,12 @@ extension AreaView {
                         ForEach(allCourseCodes, id: \.self) { code in // i.e. YIDD 99F
                             HStack {
                                 Text(code)
-                                    .foregroundColor(.appPrimary)
+                                    .foregroundColor(.supaWhite)
                                 
-                                Color.white.opacity(0.01)
+                                Color.supaDark28.opacity(0.01)
                                 
                             }
+                            .listRowBackground(Color.supaDark28)
                             .onTapGesture {
                                 onClick(code: code.lowercased())
                             }
@@ -105,7 +106,10 @@ extension AreaView {
                             .opacity(rowAppearances.keys.contains(code.lowercased()) ? rowAppearances[code.lowercased()]!.1 : 1.0)
                         }
                     }
-                    .background(.blue)
+                    .background(Color.supaDark)
+                    .scrollContentBackground(.hidden)
+                    .navigationTitle("SKFH")
+                    
                 }
                 .onAppear {
                     getAreaDetails()

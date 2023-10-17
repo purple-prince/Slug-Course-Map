@@ -42,19 +42,22 @@ struct CourseView: View {
         _selectedCourseDataArray = SwiftData.Query(filter: #Predicate { $0.code == courseCode } )
                 
         self._showCourseView = Binding(projectedValue: showCourseView)
+        
+        UISegmentedControl.appearance().backgroundColor = UIColor(Color(red: 45/255, green: 45/255, blue: 45/255))
     }
 }
 
 extension CourseView {
     var body: some View {
         ZStack {
+            Color.supaDark.ignoresSafeArea()
+            
             if let _ = course {
                 courseDetails
                     .navigationBarTitleDisplayMode(.inline)
             }
         }
         .navigationBarBackButtonHidden(true)
-        .foregroundColor(.appPrimary)
         .onAppear {
             getCourseDetails()
             self.status = selectedCourseDataArray.first!.status
@@ -119,13 +122,15 @@ extension CourseView {
         VStack(alignment: .leading) {
             Rectangle()
                 .frame(height: 2)
+                .foregroundStyle(Color.supaDark28)
             
             VStack(alignment: .leading) {
                 HStack {
                     
-                    Text("Reviews")
+                    Text("Reviews (\(Int(totalReviews)))")
                         .font(.tTitle)
                         .bold()
+                        .foregroundStyle(Color.supaWhite)
                     
                     Spacer()
                     
@@ -141,6 +146,7 @@ extension CourseView {
                 
                 HStack {
                     Text("Difficulty")
+                        .foregroundStyle(Color.supaWhite)
                         
                     
                     Spacer()
@@ -148,6 +154,7 @@ extension CourseView {
                     
                     Text("\((difficultyStars / [totalReviews, 1].max()!).description) / 5")
                         .font(.custom("Titillium-SemiBold", size: 17))
+                        .foregroundStyle(Color.supaWhite)
                     
                     ZStack(alignment: .leading) {
                         
@@ -156,7 +163,7 @@ extension CourseView {
                             .frame(width: CGFloat(difficultyRating) * 20)
                         
                         Capsule()
-                            .stroke(Color.appBlue, lineWidth: 2)
+                            .stroke(Color.supaWhite, lineWidth: 2)
                     }
                     .frame(width: 100, height: 16)
                     .clipShape(Capsule())
@@ -165,6 +172,7 @@ extension CourseView {
                 
                 HStack {
                     Text("Overall")
+                        .foregroundStyle(Color.supaWhite)
                         .onTapGesture {
                             print(satisfactionRating.description)
                         }
@@ -174,6 +182,7 @@ extension CourseView {
                     Text("\((satisfactionStars / [totalReviews, 1].max()!).description) / 5")
                         .fontWeight(.medium)
                         .font(.custom("Titillium-SemiBold", size: 17))
+                        .foregroundStyle(Color.supaWhite)
                     
                     ZStack(alignment: .leading) {
                         
@@ -182,7 +191,7 @@ extension CourseView {
                             .frame(width: CGFloat(satisfactionRating) * 20)
                         
                         Capsule()
-                            .stroke(Color.appBlue, lineWidth: 2)
+                            .stroke(Color.supaWhite, lineWidth: 2)
                     }
                     .frame(width: 100, height: 16)
                     .clipShape(Capsule())
@@ -192,16 +201,16 @@ extension CourseView {
                 .font(.tTitle2)
             }
         }
-        .foregroundStyle(Color.appBlue)
     }
     
     var courseDetails: some View {
         ZStack {
+            
             VStack {
                 ScrollView {
                     VStack(spacing: 8) {
                         Text(course!.title)
-                            .font(.tLargeTitle)
+                            .font(.tTitle)
                         
                         HStack {
                             Text(courseCode.uppercased())
@@ -212,11 +221,13 @@ extension CourseView {
                             Text("\(course!.credits) credits")
                         }
                     }
+                    .foregroundStyle(Color.supaWhite)
                                 
                     Text(course!.description)
                         .font(.tBody)
                         .padding(.vertical, 48)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundStyle(Color.supaWhite)
                     
                     VStack(alignment: .leading, spacing: 8) {
                         
@@ -233,6 +244,7 @@ extension CourseView {
                         Spacer()
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    .foregroundStyle(Color.supaWhite)
                     
                     
                     reviews
@@ -242,6 +254,7 @@ extension CourseView {
                     Rectangle()
                         .frame(height: 2)
                         .padding(.vertical)
+                        .foregroundStyle(Color.supaDark28)
                     
                     myProgressSection
                 }
@@ -259,17 +272,21 @@ extension CourseView {
     var myProgressSection: some View {
         VStack {
             Text("My Progress")
+                .foregroundStyle(Color.supaWhite)
                 .font(.tTitle)
                 .bold()
 
             Picker("", selection: $status) {
 
                 Text("Available").tag("available")
+                    .foregroundStyle(Color.supaWhite)
                     .font(.tLargeTitle)
                                     
                 Text("Taking").tag("taking")
+                    .foregroundStyle(Color.supaWhite)
                 
                 Text("Taken").tag("taken")
+                    .foregroundStyle(Color.supaWhite)
                 
             }
             .pickerStyle(SegmentedPickerStyle())

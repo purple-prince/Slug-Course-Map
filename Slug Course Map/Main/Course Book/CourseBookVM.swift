@@ -42,60 +42,71 @@ struct CourseReviewPopup: View {
     @State var satisfactionStars: Int = 1
     @Binding var showPopup: Bool
     
+    var difficultySection: some View {
+        HStack {
+            Text("Difficulty")
+                .foregroundStyle(Color.supaWhite)
+            
+            Spacer()
+            
+            HStack(spacing: 1) {
+                ForEach(1..<6) { num in
+                    Image(systemName: difficultyStars >= num ? "star.fill" : "star")
+                        .foregroundStyle(.yellow)
+                        .font(.tTitle)
+                        .onTapGesture {
+                            difficultyStars = num
+                            
+                            HapticManager.manager.playHaptic(type: .soft)
+                        }
+                }
+            }
+        }
+    }
+    
+    var satisfactionSection: some View {
+        HStack {
+            
+            Text("Satisfaction")
+                .foregroundStyle(Color.supaWhite)
+            
+            Spacer()
+            
+            HStack(spacing: 1) {
+                ForEach(1..<6) { num in
+                    Image(systemName: satisfactionStars >= num ? "star.fill" : "star")
+                        .font(.tTitle)
+                        .foregroundStyle(.yellow)
+                        .onTapGesture {
+                            satisfactionStars = num
+                            
+                            HapticManager.manager.playHaptic(type: .soft)
+                        }
+                }
+            }
+        }
+    }
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 16)
-                .foregroundStyle(.white)
+                .foregroundStyle(Color.supaDark28)
                 .shadow(color: .black, radius: 12)
                 
             
             VStack {
                 Text("Write a review")
                     .font(.tTitle)
+                    .foregroundStyle(Color.supaWhite)
                 
                 Spacer()
                 Spacer()
                 
                 VStack {
                     Spacer()
-                    HStack {
-                        Text("Difficulty")
-                        
-                        Spacer()
-                        
-                        HStack(spacing: 1) {
-                            ForEach(1..<6) { num in
-                                Image(systemName: difficultyStars >= num ? "star.fill" : "star")
-                                    .foregroundStyle(.yellow)
-                                    .font(.tTitle)
-                                    .onTapGesture {
-                                        difficultyStars = num
-                                        
-                                        HapticManager.manager.playHaptic(type: .soft)
-                                    }
-                            }
-                        }
-                    }
+                    difficultySection
                     
-                    HStack {
-                        
-                        Text("Satisfaction")
-                        
-                        Spacer()
-                        
-                        HStack(spacing: 1) {
-                            ForEach(1..<6) { num in
-                                Image(systemName: satisfactionStars >= num ? "star.fill" : "star")
-                                    .font(.tTitle)
-                                    .foregroundStyle(.yellow)
-                                    .onTapGesture {
-                                        satisfactionStars = num
-                                        
-                                        HapticManager.manager.playHaptic(type: .soft)
-                                    }
-                            }
-                        }
-                    }
+                    satisfactionSection
                     
                     Spacer()
                     
@@ -119,6 +130,8 @@ struct CourseReviewPopup: View {
                         .onTapGesture {
                             showPopup = false
                         }
+                        .padding()
+                        .foregroundStyle(Color.supaWhite)
                 }
                 
                 Spacer()
@@ -138,12 +151,16 @@ struct CourseReviewPopup: View {
             }
         }) {
             Text("Submit")
-                .foregroundStyle(.white)
+                .foregroundStyle(Color.supaWhite)
                 .font(.tTitle2)
                 .padding()
                 .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .foregroundStyle(Color.appBlue)
+                    ZStack {
+                        
+                        RoundedRectangle(cornerRadius: 12)
+                            .foregroundStyle(Color.supaDark28)
+                            .shadow(color: .supaGreen, radius: 2)
+                    }
                 )
         }
     }
@@ -163,9 +180,13 @@ struct CourseReviewPopup: View {
     }
 }
 
-//#Preview {
-//    CourseReviewPopup(showPopup: .constant(true))
-//}
+#Preview {
+    ZStack {
+        Color.supaDark.ignoresSafeArea()
+        
+        CourseReviewPopup(courseCode: "", areaTitle: "" , showPopup: .constant(true))
+    }
+}
 
 
 class Review {

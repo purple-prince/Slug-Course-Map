@@ -55,7 +55,7 @@ extension DegreeDetail {
                 .foregroundStyle(Color.supaDark28)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color(red: 0.2, green: 0.2, blue: 0.2), lineWidth: 2)
+                        .stroke(Color(red: 0.2, green: 0.2, blue: 0.2), lineWidth: 1)
                 )
             
             VStack {

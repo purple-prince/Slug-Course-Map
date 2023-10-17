@@ -23,8 +23,10 @@ struct Slug_Course_MapApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     init() {
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(Color.appPrimary)]
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(Color.supaWhite)]
     }
+    
+    @State var h: Int = 0
     
     var body: some Scene {
         WindowGroup {

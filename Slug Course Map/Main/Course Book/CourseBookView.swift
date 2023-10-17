@@ -22,10 +22,15 @@ extension CourseBookView {
                     ForEach(Array(allAreasAndCodes.keys).sorted().reversed(), id: \.self) { area in
                         NavigationLink(destination: AreaView(areaTitle: area, areaCode: allAreasAndCodes[area]!)) {
                             Text(area)
-                                .foregroundColor(.appPrimary)
+                                .foregroundColor(.supaWhite)
+                                
                         }
+                        .listRowBackground(Color.supaDark28)
+                        .preferredColorScheme(.dark)
                     }
                 }
+                .background(Color.supaDark)
+                .scrollContentBackground(.hidden)
             }
             .navigationTitle("Areas of Study")
         }
@@ -54,4 +59,22 @@ extension CourseBookView {
             }
         }
     }
+}
+
+#Preview {
+    CourseBookView(allAreasAndCodes: .constant([
+        "Yiddish" : "YIDD",
+        "Writing" : "YIDD",
+        "Visualizing Abolitionist Studies" : "YIDD",
+        "UCDC" : "YIDD",
+        "Theater Arts" : "YIDD",
+        "Technology Information Management" : "YIDD",
+        "Stevenson College" : "YIDD",
+        "Statistics" : "YIDD",
+        "Spanish for Heritage Speakers" : "YIDD",
+        "Spanish" : "YIDD",
+        "Sociology" : "YIDD",
+        "Social Documentation" : "YIDD",
+        "Science Communication" : "YIDD"
+    ]))
 }
