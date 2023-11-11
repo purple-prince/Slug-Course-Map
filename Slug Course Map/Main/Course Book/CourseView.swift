@@ -262,6 +262,7 @@ extension CourseView {
                 
             }
             .padding()
+            .disabled(showRateCoursePopup)
             
             if showRateCoursePopup {
                 CourseReviewPopup(courseCode: courseCode, areaTitle: areaTitle, showPopup: $showRateCoursePopup)

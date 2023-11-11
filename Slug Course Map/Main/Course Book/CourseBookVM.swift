@@ -42,6 +42,12 @@ struct CourseReviewPopup: View {
     @State var satisfactionStars: Int = 1
     @Binding var showPopup: Bool
     
+    
+    // button anim vals
+    @State var buttonActive: Bool = false
+    @State var beginTextShrink: Bool = false
+    @State var beginCheckScale: Bool = false
+    
     var difficultySection: some View {
         HStack {
             Text("Difficulty")
@@ -104,9 +110,11 @@ struct CourseReviewPopup: View {
                 
                 VStack {
                     Spacer()
-                    difficultySection
+                    difficultySection.disabled(buttonActive)
+                        .opacity(buttonActive ? 0.5 : 1.0)
                     
-                    satisfactionSection
+                    satisfactionSection.disabled(buttonActive)
+                        .opacity(buttonActive ? 0.5 : 1.0)
                     
                     Spacer()
                     
@@ -145,23 +153,52 @@ struct CourseReviewPopup: View {
     var submitButton: some View {
         Button(action: {
             
-            if difficultyStars > 0 && satisfactionStars > 0 {
-                let review = Review(difficultyStars: Double(difficultyStars), satisfactionStars: Double(satisfactionStars))
-                submitCourseReview(areaTitle: areaTitle, courseCode: courseCode, review: review)
+            if !buttonActive {
+                
+                withAnimation(.linear(duration: 0.5)) {
+                    buttonActive = true
+                }
+                
+                withAnimation(.linear(duration: 0.2)) {
+                    beginTextShrink = true
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    withAnimation(.spring(duration: 0.3, bounce: 0.6)) {
+                        beginCheckScale = true
+                    }
+                }
+                
+                if difficultyStars > 0 && satisfactionStars > 0 {
+                    let review = Review(difficultyStars: Double(difficultyStars), satisfactionStars: Double(satisfactionStars))
+                    submitCourseReview(areaTitle: areaTitle, courseCode: courseCode, review: review)
+                }
             }
         }) {
-            Text("Submit")
-                .foregroundStyle(Color.supaWhite)
-                .font(.tTitle2)
-                .padding()
-                .background(
-                    ZStack {
-                        
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundStyle(Color.supaDark28)
-                            .shadow(color: .supaGreen, radius: 2)
-                    }
-                )
+            
+            ZStack {
+                Rectangle()
+                    .cornerRadius(buttonActive ? 30 : 12)
+                    .foregroundStyle(Color.supaDark28)
+                    .shadow(color: .supaGreen, radius: 2)
+                    .frame(width: buttonActive ? 60 : .nan)
+                    
+                
+                Text("Submit")
+                    .foregroundStyle(Color.supaWhite)
+                    .font(.tTitle2)
+                    .padding()
+                    .opacity(beginTextShrink ? 0.0 : 1)
+                    .scaleEffect(beginTextShrink ? 0.01 : 1)
+                
+                Image(systemName: "checkmark")
+                    .foregroundStyle(Color.supaGreen)
+                    .font(.title)
+                    .opacity(beginCheckScale ? 1.0 : 0)
+                    .scaleEffect(beginCheckScale ? 1.0 : 0.01)
+                
+            }
+            .fixedSize()
         }
     }
     
