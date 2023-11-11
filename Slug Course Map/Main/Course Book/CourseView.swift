@@ -128,7 +128,7 @@ extension CourseView {
                 HStack {
                     
                     Text("Reviews (\(Int(totalReviews)))")
-                        .font(.tTitle)
+                        .font(.tTitle2)
                         .bold()
                         .foregroundStyle(Color.supaWhite)
                     
@@ -159,19 +159,19 @@ extension CourseView {
                     ZStack(alignment: .leading) {
                         
                         Rectangle()
-                            .fill(ratingColorMap(difficultyRating))
+                            .fill(Color.supaGreen)
                             .frame(width: CGFloat(difficultyRating) * 20)
                         
                         Capsule()
-                            .stroke(Color.supaWhite, lineWidth: 2)
+                            .stroke(Color.supaGreen, lineWidth: 2)
                     }
                     .frame(width: 100, height: 16)
                     .clipShape(Capsule())
                 }
-                .font(.tTitle2)
+                .font(.tTitle3)
                 
                 HStack {
-                    Text("Overall")
+                    Text("Satisfaction")
                         .foregroundStyle(Color.supaWhite)
                         .onTapGesture {
                             print(satisfactionRating.description)
@@ -179,7 +179,7 @@ extension CourseView {
                     
                     Spacer()
                     
-                    Text("\((satisfactionStars / [totalReviews, 1].max()!).description) / 5")
+                    Text("\((satisfactionStars / [totalReviews, 1].max()!).rounded(to: 2).description) / 5")
                         .fontWeight(.medium)
                         .font(.custom("Titillium-SemiBold", size: 17))
                         .foregroundStyle(Color.supaWhite)
@@ -187,11 +187,11 @@ extension CourseView {
                     ZStack(alignment: .leading) {
                         
                         Rectangle()
-                            .fill(ratingColorMap(satisfactionRating))
+                            .fill(Color.supaGreen)
                             .frame(width: CGFloat(satisfactionRating) * 20)
                         
                         Capsule()
-                            .stroke(Color.supaWhite, lineWidth: 2)
+                            .stroke(Color.supaGreen, lineWidth: 2)
                     }
                     .frame(width: 100, height: 16)
                     .clipShape(Capsule())

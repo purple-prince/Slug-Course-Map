@@ -93,8 +93,13 @@ extension DiningView {
             Color.supaDark.ignoresSafeArea()
             
             VStack {
-                ForEach(allDhNames, id: \.self) { title in
-                    dhTitleView(name: title)
+                ScrollView {
+                    ForEach(allDhNames, id: \.self) { title in
+                        dhTitleView(name: title)
+                    }
+                    .padding(.top)
+                    
+                    Spacer()
                 }
             }
         }
@@ -188,7 +193,8 @@ extension DiningView {
                 let today = Date()
                 let formattedDate = dateFormatter.string(from: today)
                 
-                menuInfo = doc[formattedDate] as? [String : [String : [String]]]
+//                menuInfo = doc[formattedDate] as? [String : [String : [String]]]
+                menuInfo = doc["10/16/2023"] as? [String : [String : [String]]]
             }
         }
     }

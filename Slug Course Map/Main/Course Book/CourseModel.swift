@@ -12,16 +12,18 @@ import SwiftUI
 @Model
 class CourseDataModel: Hashable {
     
+    // TODO: do we want to not allow for more than one rating, or do we want to replace the course rating after each repeated rate?
+    
     @Attribute(.unique) let code: String
 //    var status: CourseStatus
     var status: String
+  //  var rated: Bool
     
     init(code: String) {
         self.code = code
         self.status = "available"
+        //self.rated = false
     }
-    
-    
     
     static func strToStatus(_ str: String) -> CourseStatus {
         switch str {
