@@ -4,7 +4,7 @@ Just a primitive proof of concept :)
 
 Features as of now:
 
-- localized, interactive map
+- localized, 2d/3d interactive map
 - reference to virtually all consistent informtion provided by ucsc (without API access!) regarding all majors, minors, & courses for undergraduate and graduate study
 - credit tracking, course & degree progress tracking
 - view & write reviews on courses & degrees
